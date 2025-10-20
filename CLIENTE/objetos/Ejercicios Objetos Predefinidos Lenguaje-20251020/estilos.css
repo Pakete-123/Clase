@@ -1,0 +1,119 @@
+/* Archivo de estilos para los ejercicios del proyecto 2.11 al 2.20 y EjerciciosJavaScriptIniciacion2*/
+/* Descripción: Este CSS define un estilo básico para la estructura visual de los formularios de los ejercicios */
+
+/* Estilo general para el cuerpo de la página */
+body {
+    font-family: Arial, sans-serif; /* Fuente legible para los textos */
+    background-color: #f0f0f0; /* Color de fondo neutro */
+    margin: 40px; /* Margen alrededor del contenido */
+}
+
+/* Encabezados de los ejercicios */
+h1 {
+    color: #333; /* Color principal de los títulos */
+    font-size: 24px; /* Tamaño del título principal */
+    margin-bottom: 20px; /* Espacio debajo del título */
+}
+
+h2 {
+    color: #555; /* Color secundario para subtítulos */
+    font-size: 18px; /* Tamaño del subtítulo */
+    margin-bottom: 15px; /* Espaciado adecuado para separar subtítulos */
+}
+
+/* Estilo para los formularios y etiquetas de entrada */
+label, input {
+    display: block; /* Mostrar en línea independiente */
+    margin: 10px 0; /* Espacio entre los elementos del formulario */
+}
+
+/* Entrada de texto */
+input {
+    padding: 8px; /* Espacio interior del input */
+    width: 300px; /* Ancho ajustado para inputs */
+    border: 1px solid #ccc; /* Borde gris claro */
+    border-radius: 5px; /* Bordes redondeados para mejor apariencia */
+}
+
+/* Botón principal para ejecutar las acciones */
+button {
+    margin-top: 15px; /* Separación superior del botón */
+    padding: 10px 20px; /* Relleno del botón para hacerlo más accesible */
+    background-color: #007bff; /* Color azul estándar */
+    color: white; /* Texto en blanco */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor de mano */
+    transition: background-color 0.3s; /* Transición suave en el hover */
+}
+
+/* Estilo del botón al pasar el ratón por encima */
+button:hover {
+    background-color: #0056b3; /* Color más oscuro al hacer hover */
+}
+
+/* Estilo para el área de resultados */
+#resultado {
+    margin-top: 20px; /* Separación superior */
+    padding: 15px; /* Espaciado interior */
+    background-color: #e9ecef; /* Fondo de área de resultados */
+    border: 1px solid #ccc; /* Borde alrededor del área */
+    border-radius: 5px; /* Bordes redondeados */
+    font-style: italic; /* Letra en cursiva para diferenciar resultados */
+}
+
+/* Enlace de referencia para la navegación entre ejercicios */
+a {
+    color: #007bff; /* Color de los enlaces */
+    text-decoration: none; /* Sin subrayado */
+}
+
+a:hover {
+    text-decoration: underline; /* Subrayar al pasar el ratón */
+}
+
+/* Agregar estilo para mensajes de error */
+.error {
+    color: red; /* Color rojo para mensajes de error */
+    font-weight: bold; /* Negrita para destacar el error */
+}
+
+/* Estilo para secciones de comentarios y detalles */
+.comment {
+    font-size: 14px; /* Tamaño de letra reducido */
+    color: #666; /* Color gris tenue */
+    margin-top: 15px; /* Separación superior */
+}
+
+/* Estilo para el contenedor de ejemplos */
+.ejemplo {
+    padding: 10px; /* Espacio interior */
+    /*background-color: #f9f9f9;*/ /* Fondo gris claro */
+    border-left: 5px solid #007bff; /* Línea azul a la izquierda */
+    margin-bottom: 20px; /* Separación entre ejemplos */
+}
+
+/* Estructura básica de la tabla */
+table {
+    width: 100%; /* Ancho completo */
+    border-collapse: collapse; /* Quitar espacios internos */
+    margin: 20px 0; /* Espacio superior e inferior */
+}
+
+/* Estilo para las celdas de la tabla */
+th, td {
+    border: 1px solid #ddd; /* Borde gris claro */
+    padding: 12px; /* Espacio interno */
+    text-align: left; /* Alineación a la izquierda */
+}
+
+/* Color de fondo de los encabezados */
+th {
+    background-color: #007bff; /* Azul claro */
+    color: white; /* Texto blanco */
+}
+
+/* Estilo de las filas alternas */
+tr:nth-child(even) {
+    background-color: #f2f2f2; /* Fondo gris para filas pares */
+}
