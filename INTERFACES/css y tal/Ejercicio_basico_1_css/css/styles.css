@@ -1,0 +1,107 @@
+/* === Variables globales: valores reutilizables ===
+   - Ventaja: cambias aquí y se actualiza todo el sitio. */
+
+   /*Todas las variables se deben definir en la seccion root*/
+:root{
+  --color-fondo:#fff;   /* fondo base de la página */
+  --color-texto:#222;         /* texto legible (contraste) */
+  --color-primario:#f97316;   /* color corporativo */
+  --color-borde:#ccc;         /* gris suave para bordes */
+  --esp:1rem;                 /* espaciado base (1rem ≈ 16px) */
+  --radio:.5rem;              /* redondeo estándar */
+  --btn-radius: .3rem;        /*Radio a aplicar al boton*/
+  --color-fondo-tarjeta-4:#fff7ed;
+  --color-borde-tarjeta-4:solid #000;
+  --padding-tarjeta-4:calc(var(--esp) * 1.50);
+}
+
+/* Box model consistente: padding y borde se incluyen en el ancho total */
+*{ box-sizing:content-box; }
+
+body{
+  margin:0;
+  background:var(--color-fondo); /*Se le aplica el valor de la variable --color-fondo*/
+  color:var(--color-texto);
+  font-family:system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 1.125rem;
+  line-height:1.5;
+}
+
+/*Definimos la clase titulo e incrementamos el tamaño al titulo 2rem -> 32px*/
+
+.titulo{
+  font-size: 2rem;
+}
+
+/* Cabecera con color principal y espaciado doble */
+#principal{
+  border-radius:var(--radio);
+  padding: calc(var(--esp) * 2);
+}
+
+
+/* Contenedor flexible con huecos uniformes */
+.contenedor{
+  display:flex; flex-wrap:wrap; justify-content:center;
+  gap:var(--esp); padding:var(--esp);
+}
+
+/* Tarjeta base: aplicaremos box model aquí */
+.card{
+  background:#fff;
+  border:1px solid var(--color-borde);
+  /*Con la funcion calc, podemos calcular los valores sobre los que se calcula p.e. el padding*/
+  padding:calc(var(--esp)*2);
+  margin:.5rem;
+  border-radius:var(--radio);
+  width:280px;
+  box-shadow:0 1px 4px rgba(0,0,0,.08);
+}
+
+/*Definimos un estilo con el selector de clase, la clase se llama marco*/
+.marco {
+  border: 2px dashed #999; /*El borde de los pixeles es discontinuo y color gris*/
+  
+}
+
+.card h2{ color:var(--color-primario); }
+
+/*Cambiar el color a todas las etiquetas h2*/
+
+.card h2{
+  color: #111;
+}
+
+/* Variante: más padding (espacio interior) */
+.card.grande{ padding:calc(var(--esp)*2); }
+
+
+/* Variante: color de fondo y borde distintos */
+/*RGBA, como rgb pero incluye el caracter alpha que define la transparencia del color*/
+.card.color{ background:rgba(14,165,233,.10); border-color:var(--color-primario); }
+
+
+/* Botón con estados accesibles */
+.btn{
+  display:inline-block;
+  background:var(--color-primario);
+  color:#fff;
+  padding:.6rem 1rem;
+  border-radius:var(--btn-radius); /*Aplicamos el valor de la variable --btn-radius*/
+  text-decoration:none;
+}
+.btn:hover{ background:#0284c7; }               /* :hover → feedback con ratón */
+.btn:focus-visible{ outline:2px solid #0ea5e9; } /* :focus-visible → foco teclado (accesibilidad) */
+
+/*Ejercicio propuesto: 
+Crea un estilo .card.secundaria usando variables
+- El color de fondo será: #fff7ed
+- El color del borde negro
+- El padding será el 150% del valor actual de la variable --esp
+- Crea una nueva tarjeta con estos estilos */
+
+.card.secundaria{
+  background: var(--color-fondo-tarjeta-4);
+  border:var(--color-borde-tarjeta-4);
+  padding: var(--padding-tarjeta-4);
+}

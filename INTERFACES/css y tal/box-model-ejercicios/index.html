@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Modelo de Cajas — Ejercicios con Conmutadores</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Estilos mínimos de la UI local de la página */
+    .toolbar { display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom: 1rem; }
+    .toolbar details { border:1px solid #ddd; border-radius:.5rem; padding:.5rem .75rem; background:#fff; }
+    .toolbar summary { cursor:pointer; font-weight:600; }
+    .btn { cursor:pointer; padding:.5rem .75rem; border:1px solid #ccc; border-radius:.5rem; background:#f0f3f7; }
+    .btn:hover { background:#e6edf6; }
+    .pill { font-size:.8rem; padding:.2rem .5rem; border:1px solid #bbb; border-radius:9999px; background:#fafafa; }
+    .note { font-size:.9rem; color:#444; }
+    .grid { display:grid; grid-template-columns: 1fr; gap:1rem; }
+    @media (min-width: 960px) { .grid { grid-template-columns: 1fr 1fr; } }
+    .panel-ui { background:#fff; border:1px solid #e5e7eb; border-radius:.75rem; padding:1rem; }
+    .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background:#f3f4f6; padding:.1rem .35rem; border-radius:.25rem; border:1px solid #e5e7eb; }
+  </style>
+</head>
+<body>
+  <header class="site-header">Modelo de Cajas — Ejercicios</header>
+
+  <main class="wrapper">
+    <section class="panel-ui">
+      <h2>Conmutadores de ejercicios</h2>
+      <p class="note">Activa/desactiva cada ejercicio para observar el efecto en el <span class="pill">box model</span>. Usa DevTools (<span class="kbd">F12</span>) → panel Box Model.</p>
+      <div class="toolbar">
+        <details open>
+          <summary>1–5: Color, padding/margin, borde, box-sizing, centrado</summary>
+          <div class="row">
+            <button class="btn" data-ex="1">1) h1 azul</button>
+            <button class="btn" data-ex="2">2) Padding vs Margin</button>
+            <button class="btn" data-ex="3">3) Borde grueso</button>
+            <button class="btn" data-ex="4">4) content-box vs border-box</button>
+            <button class="btn" data-ex="5">5) Centrado con margin:auto</button>
+          </div>
+        </details>
+        <details>
+          <summary>6–10: Colapso, overflow, ejes, display, gap</summary>
+          <div class="row">
+            <button class="btn" data-ex="6">6) Colapso de márgenes</button>
+            <button class="btn" data-ex="7">7) Overflow (visible/hidden/auto)</button>
+            <button class="btn" data-ex="8">8) Overflow por eje</button>
+            <button class="btn" data-ex="9">9) inline vs inline-block vs block</button>
+            <button class="btn" data-ex="10">10) gap vs margin</button>
+          </div>
+        </details>
+        <details>
+          <summary>11–15: background-clip, lógicas, accesibilidad, unidades, mismo ancho</summary>
+          <div class="row">
+            <button class="btn" data-ex="11">11) background-clip</button>
+            <button class="btn" data-ex="12">12) Propiedades lógicas</button>
+            <button class="btn" data-ex="13">13) Área táctil</button>
+            <button class="btn" data-ex="14">14) Unidades relativas</button>
+            <button class="btn" data-ex="15">15) Mismo ancho total</button>
+          </div>
+        </details>
+        <button class="btn" id="reset">Reiniciar</button>
+      </div>
+    </section>
+
+    <section class="grid">
+      <section class="panel">
+        <h2>Zona de prueba A</h2>
+        <h1 class="titulo">Encabezado principal</h1>
+
+        <div class="caja a">Caja A: contenido corto. <span class="extra-largo hidden"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dignissim, purus ac efficitur convallis, massa lacus gravida nisl, non bibendum ex nibh eu lectus.</span></div>
+        <div class="caja b">
+          Caja B: contenido algo más largo para ver diferencias.
+          <div class="colapso-wrap hidden">
+            <h3 class="t1">Bloque 1</h3>
+            <p class="t2">Bloque 2</p>
+          </div>
+          <span class="linea-larga hidden">TextoSinEspaciosExtremadamenteLargoParaForzarScrollHorizontal_1234567890</span>
+        </div>
+
+        <p class="texto">Un párrafo con <a href="#" class="enlace">un enlace</a> en línea.</p>
+
+        <div class="grupo-inline">
+          <span class="tag">Etiqueta 1</span>
+          <span class="tag">Etiqueta 2 con texto largo</span>
+          <span class="tag">Etiqueta 3</span>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Ayudas</h2>
+        <ul>
+          <li>Abre DevTools y selecciona cualquier elemento para ver <em>margin / border / padding / content</em>.</li>
+          <li>Conmutar varios ejercicios a la vez te ayuda a comparar combinaciones.</li>
+          <li>El botón <strong>Reiniciar</strong> limpia todas las clases y contenidos extra.</li>
+        </ul>
+        <p>Atajos útiles:</p>
+        <ul>
+          <li><span class="kbd">Ctrl</span> + <span class="kbd">Shift</span> + <span class="kbd">C</span>: seleccionar elemento.</li>
+          <li><span class="kbd">Alt</span> + rueda: zoom en el panel.</li>
+        </ul>
+      </section>
+    </section>
+  </main>
+
+  <footer class="site-footer">DIW — Box Model</footer>
+
+  <script>
+    const $ = (sel) => document.querySelector(sel);
+    const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+    const state = {
+      active: new Set()
+    };
+
+    function toggleExercise(n) {
+      const num = String(n);
+      if (state.active.has(num)) {
+        state.active.delete(num);
+        deactivate(num);
+      } else {
+        state.active.add(num);
+        activate(num);
+      }
+    }
+
+    function activate(num) {
+      const h1 = document.querySelector('h1.titulo');
+      const cajaA = document.querySelector('.caja.a');
+      const cajaB = document.querySelector('.caja.b');
+      const tags = $$('.tag');
+      const grupo = $('.grupo-inline');
+
+      switch(num) {
+        case '1':
+          h1.classList.add('e1-h1-azul');
+          break;
+        case '2':
+          cajaA.classList.add('e2-a');
+          cajaB.classList.add('e2-b');
+          break;
+        case '3':
+          cajaA.classList.add('e3-borde-grueso');
+          break;
+        case '4':
+          cajaA.classList.add('e4-content-box');
+          cajaB.classList.add('e4-border-box');
+          break;
+        case '5':
+          cajaA.classList.add('e5-centrada');
+          break;
+        case '6':
+          const wrap = document.querySelector('.colapso-wrap');
+          wrap.classList.remove('hidden');
+          $('.t1').classList.add('e6-t1');
+          $('.t2').classList.add('e6-t2');
+          break;
+        case '7':
+          cajaA.classList.add('e7-ovf');
+          document.querySelector('.extra-largo').classList.remove('hidden');
+          break;
+        case '8':
+          cajaB.classList.add('e8-ovf-eje');
+          document.querySelector('.linea-larga').classList.remove('hidden');
+          break;
+        case '9':
+          tags.forEach(el => el.classList.add('e9'));
+          break;
+        case '10':
+          grupo.classList.add('e10-flex');
+          tags.forEach(el => el.classList.add('e10-tag'));
+          break;
+        case '11':
+          cajaA.classList.add('e11-bgclip');
+          break;
+        case '12':
+          cajaB.classList.add('e12-logicas');
+          break;
+        case '13':
+          tags.forEach(el => el.classList.add('e13-pill'));
+          break;
+        case '14':
+          cajaA.classList.add('e14-relativas');
+          break;
+        case '15':
+          cajaA.classList.add('e15-a');
+          cajaB.classList.add('e15-b');
+          break;
+      }
+    }
+
+    function deactivate(num) {
+      const h1 = document.querySelector('h1.titulo');
+      const cajaA = document.querySelector('.caja.a');
+      const cajaB = document.querySelector('.caja.b');
+      const tags = $$('.tag');
+      const grupo = $('.grupo-inline');
+
+      switch(num) {
+        case '1':
+          h1.classList.remove('e1-h1-azul');
+          break;
+        case '2':
+          cajaA.classList.remove('e2-a');
+          cajaB.classList.remove('e2-b');
+          break;
+        case '3':
+          cajaA.classList.remove('e3-borde-grueso');
+          break;
+        case '4':
+          cajaA.classList.remove('e4-content-box');
+          cajaB.classList.remove('e4-border-box');
+          break;
+        case '5':
+          cajaA.classList.remove('e5-centrada');
+          break;
+        case '6':
+          const wrap = document.querySelector('.colapso-wrap');
+          wrap.classList.add('hidden');
+          $('.t1').classList.remove('e6-t1');
+          $('.t2').classList.remove('e6-t2');
+          break;
+        case '7':
+          cajaA.classList.remove('e7-ovf');
+          document.querySelector('.extra-largo').classList.add('hidden');
+          break;
+        case '8':
+          cajaB.classList.remove('e8-ovf-eje');
+          document.querySelector('.linea-larga').classList.add('hidden');
+          break;
+        case '9':
+          tags.forEach(el => el.classList.remove('e9'));
+          break;
+        case '10':
+          grupo.classList.remove('e10-flex');
+          tags.forEach(el => el.classList.remove('e10-tag'));
+          break;
+        case '11':
+          cajaA.classList.remove('e11-bgclip');
+          break;
+        case '12':
+          cajaB.classList.remove('e12-logicas');
+          break;
+        case '13':
+          tags.forEach(el => el.classList.remove('e13-pill'));
+          break;
+        case '14':
+          cajaA.classList.remove('e14-relativas');
+          break;
+        case '15':
+          cajaA.classList.remove('e15-a');
+          cajaB.classList.remove('e15-b');
+          break;
+      }
+    }
+
+    $$('.btn[data-ex]').forEach(btn => {
+      btn.addEventListener('click', () => toggleExercise(btn.dataset.ex));
+    });
+
+    $('#reset').addEventListener('click', () => {
+      // Limpia todas las clases y oculta extras
+      const all = document.querySelectorAll('.e1-h1-azul, .e2-a, .e2-b, .e3-borde-grueso, .e4-content-box, .e4-border-box, .e5-centrada, .e6-t1, .e6-t2, .e7-ovf, .e8-ovf-eje, .e9, .e10-flex, .e10-tag, .e11-bgclip, .e12-logicas, .e13-pill, .e14-relativas, .e15-a, .e15-b');
+      all.forEach(el => el.classList.remove(...el.className.split(' ').filter(c => c.startsWith('e'))));
+
+      document.querySelector('.colapso-wrap').classList.add('hidden');
+      document.querySelector('.extra-largo').classList.add('hidden');
+      document.querySelector('.linea-larga').classList.add('hidden');
+
+      state.active.clear();
+    });
+  </script>
+</body>
+</html>
