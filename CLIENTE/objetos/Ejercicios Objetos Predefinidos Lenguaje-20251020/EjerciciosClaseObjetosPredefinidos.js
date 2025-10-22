@@ -113,3 +113,63 @@ function ejercicio4() {
 }
 
 //Ejercicio 5: diferenciaDias(fecha1, fecha2): Calcula la diferencia en días usando getTime() para restar las fechas en milisegundos.
+function diferenciaDias(f1, f2){
+
+    const d1 = new Date(f1).getTime();
+    const d2 = new Date(f2).getTime();
+
+    if (Number.isNaN(d1) || Number.isNaN(d2)) return null;
+
+    const msDia = 1000 * 60 * 60 * 24;
+    
+    let difFechas = 0;
+
+    if (d1 > d2) {
+        difFechas = d1 - d2;
+    } else {
+        difFechas = d2 - d1;
+    }
+
+    return difFechas / msDia;
+
+}
+
+function ejercicio5() {
+    // Pedir datos y validar
+    const f1 = prompt("Primera fecha: (YYYY-MM-DD)");
+    if (f1 === null) return;
+
+    const f2 = prompt("Segunda fecha: (YYYY-MM-DD)");
+    if (f2 === null) return;
+
+    // Invocamos la función
+    const dias = diferenciaDias(f1, f2);
+
+    // Mostramos el resultado
+    setResult(dias ? `<strong>Diferencia:</strong> ${dias} días` : `Alguna fecha no es válida`);
+
+}
+
+//Ejercicio 6: sumarDias(fecha, dias): Suma un número de días a una fecha usando setDate().
+function sumarDias(f, d) {
+
+    const D = new Date(f);
+
+    if(Number.isNaN(D.getTime())) return null;
+
+    D.setDate(D.getDate() + Number(d));
+    return D.toISOString().slice(0, 10);
+}
+
+function ejercicio6() {
+
+    const F = prompt("Fecha base: (YYYY-MM-DD)");
+    if (F === null) return;
+
+    const DIAS = prompt("Días a sumar");
+    if (DIAS === null) return;
+
+    const NUEVA_FECHA = sumarDias(F, DIAS);
+
+    setResult(NUEVA_FECHA ? `<strong>Nueva fecha:</strong> ${NUEVA_FECHA} ` : `Fecha inválida ${NUEVA_FECHA}`)
+}

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>UD3 · Objetos predefinidos — Ejercicios extra</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Tu CSS general (opcional, si ya lo usas) -->
+  <link rel="stylesheet" href="estilos.css" />
+  <!-- Nuevo CSS específico de esta página -->
+  <link rel="stylesheet" href="ud3_extra.css" />
+  <script src="scriptObjetosPredefinidos2.js" defer></script>
+</head>
+<body>
+  <h1>UD3 · Ejercicios extra (objetos predefinidos)</h1>
+
+  <div class="row">
+    <label for="ej">Elige ejercicio</label>
+    <select id="ej">
+      <option value="1">1) Normalizar títulos</option>
+      <option value="2">2) Estadísticas de texto</option>
+      <option value="3">3) Checksum de cadena</option>
+      <option value="4">4) Formatear moneda (EUR)</option>
+      <option value="5">5) Diferencia entre horas (minutos)</option>
+      <option value="6">6) Validación básica de email</option>
+      <option value="7">7) Desglosar URL (host, pathname, params)</option>
+      <option value="8">8) Sorteo ponderado</option>
+      <option value="9">9) Redondear a N decimales</option>
+      <option value="10">10) Info de mes (primer día y nº de días)</option>
+    </select>
+    <button id="run">Ejecutar</button>
+  </div>
+
+  <div id="inputs"></div>
+
+  <div id="resultado">Aquí aparecerá el resultado.</div>
+
+  <!-- Script con las 10 funciones -->
+  <script src="scriptEjerciciosUD3_extra.js" defer></script>
+
+  <script>
+    // --- Mapeo de campos por ejercicio ---
+    const schema = {
+      1: [{ name: "titulo", placeholder: "Ej.:   iNTRoDUccIón    a   JAVAscript  " }],
+      2: [{ name: "texto", placeholder: "Pega aquí un párrafo para analizar" }],
+      3: [{ name: "cadena", placeholder: "Ej.: Hola" }],
+      4: [{ name: "importe", placeholder: "Ej.: 1234567.89" }],
+      5: [{ name: "h1", placeholder: "HH:MM (inicio)" }, { name: "h2", placeholder: "HH:MM (fin)" }],
+      6: [{ name: "correo", placeholder: "Ej.: persona@dominio.com" }],
+      7: [{ name: "url", placeholder: "Ej.: https://midominio.com/ruta?curso=dam&mod=ud3" }],
+      8: [{ name: "items", type: "textarea", placeholder:
+`Introduce JSON de items (op y peso), por ejemplo:
+[
+  {"op":"A","peso":1},
+  {"op":"B","peso":3},
+  {"op":"C","peso":2}
+]` }],
+      9: [{ name: "num", placeholder: "Número (ej.: 1.005)" }, { name: "dec", placeholder: "Decimales (ej.: 2)" }],
+      10: [{ name: "mes", placeholder: "Mes 1-12 (ej.: 2)" }, { name: "anio", placeholder: "Año (ej.: 2024)" }],
+    };
+
+    const $ej = document.getElementById("ej");
+    const $inputs = document.getElementById("inputs");
+    const $run = document.getElementById("run");
+    const $res = document.getElementById("resultado");
+
+    function renderForm(idx) {
+      $inputs.innerHTML = "";
+      const fields = schema[idx] || [];
+      fields.forEach(f => {
+        const wrap = document.createElement("div");
+        wrap.className = "grid";
+
+        const label = document.createElement("label");
+        label.textContent = f.name;
+
+        const control = f.type === "textarea" ? document.createElement("textarea") : document.createElement("input");
+        control.name = f.name;
+        control.placeholder = f.placeholder || "";
+        if (!f.type) control.type = "text";
+        if (["importe","num","dec","mes","anio"].includes(f.name)) control.classList.add("mono");
+
+        wrap.appendChild(label);
+        wrap.appendChild(control);
+        $inputs.appendChild(wrap);
+      });
+
+      const help = document.createElement("div");
+      help.className = "help";
+      help.innerHTML = {
+        1: "Usa trim + replace(/\\s+/g,' ') + toLowerCase + split/map/join para capitalizar.",
+        2: "Cuenta palabras y caracteres sin espacios; calcula media con 2 decimales.",
+        3: "Checksum: suma de códigos Unicode de cada carácter.",
+        4: "Intl.NumberFormat('es-ES', {style:'currency', currency:'EUR'}).format(importe).",
+        5: "Convierte HH:MM a minutos desde medianoche; si negativo, suma 1440.",
+        6: "RegExp sencilla: ^[^\\s@]+@[^\\s@]+\\.[A-Za-z]{2,}$",
+        7: "new URL(url).searchParams → Object.fromEntries(entries()).",
+        8: "Pega un JSON con [{op:'A',peso:1}, ...]; se respeta la probabilidad relativa.",
+        9: "Redondeo correcto: (num + Number.EPSILON) * 10^n → Math.round → / 10^n.",
+        10:"new Date(año, mes-1, 1) y new Date(año, mes, 0).getDate()."
+      }[idx] || "";
+      $inputs.appendChild(help);
+    }
+
+    function ejecutar(idx) {
+      const data = Object.fromEntries(
+        Array.from($inputs.querySelectorAll("input,textarea")).map(el => [el.name, el.value])
+      );
+
+      try {
+        let out;
+        switch (Number(idx)) {
+          case 1:  out = normalizarTitulo(data.titulo ?? ""); break;
+          case 2:  out = estadisticasTexto(data.texto ?? ""); break;
+          case 3:  out = checksum(data.cadena ?? ""); break;
+          case 4:  out = formatearEUR(Number(data.importe)); break;
+          case 5:  out = diferenciaMinutos(data.h1 ?? "", data.h2 ?? ""); break;
+          case 6:  out = esEmailValido(data.correo ?? ""); break;
+          case 7:  out = desglosarURL(data.url ?? ""); break;
+          case 8:  out = sorteoPonderado(JSON.parse(data.items || "[]")); break;
+          case 9:  out = roundTo(Number(data.num), Number(data.dec)); break;
+          case 10: out = infoMes(Number(data.mes), Number(data.anio)); break;
+          default: out = "Ejercicio no definido";
+        }
+        $res.innerHTML = "<pre class='mono'>" + escapeHTML(formatOutput(out)) + "</pre>";
+      } catch (err) {
+        $res.innerHTML = "<pre class='mono error'>Error: " + escapeHTML(String(err)) + "</pre>";
+      }
+    }
+
+    function formatOutput(o) {
+      return typeof o === "object" ? JSON.stringify(o, null, 2) : String(o);
+    }
+    function escapeHTML(s) {
+      return s.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")
+              .replaceAll('"',"&quot;").replaceAll("'","&#39;");
+    }
+
+    $ej.addEventListener("change", () => renderForm(Number($ej.value)));
+    $run.addEventListener("click", () => ejecutar(Number($ej.value)));
+
+    renderForm(Number($ej.value));
+  </script>
+  <script src="Ejercicios2.js"></script>
+</body>
+</html>
