@@ -1,0 +1,35 @@
+/* Aplicar border-box a todo (incluidos pseudo-elementos) */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/*
+::before y ::after suelen usarse para ornamentación (badges, flechas, overlays) 
+y también llevan padding/border. Queremos que sigan el mismo modelo de caja 
+para que no rompan el layout.
+*/
+
+
+.demo {
+    display: flex;
+    gap: 24px;
+}
+
+.box {
+    width: 300px;
+    padding: 20px;
+    border: 4px solid;
+    background: #f3f3f3;
+}
+
+.content {
+    box-sizing: content-box;
+    border-color: #888;
+}
+
+.border {
+    box-sizing: border-box;
+    border-color: #444;
+}

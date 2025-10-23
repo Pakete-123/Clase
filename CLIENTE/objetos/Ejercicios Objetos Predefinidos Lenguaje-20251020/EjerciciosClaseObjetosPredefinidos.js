@@ -136,17 +136,17 @@ function diferenciaDias(f1, f2){
 
 function ejercicio5() {
     // Pedir datos y validar
-    const f1 = prompt("Primera fecha: (YYYY-MM-DD)");
-    if (f1 === null) return;
+    const F1 = prompt("Primera fecha: (YYYY-MM-DD)");
+    if (F1 === null) return;
 
-    const f2 = prompt("Segunda fecha: (YYYY-MM-DD)");
-    if (f2 === null) return;
+    const F2 = prompt("Segunda fecha: (YYYY-MM-DD)");
+    if (F2 === null) return;
 
     // Invocamos la función
-    const dias = diferenciaDias(f1, f2);
+    const DIAS = diferenciaDias(F1, F2);
 
     // Mostramos el resultado
-    setResult(dias ? `<strong>Diferencia:</strong> ${dias} días` : `Alguna fecha no es válida`);
+    setResult(DIAS ? `<strong>Diferencia:</strong> ${DIAS} días` : `Alguna fecha no es válida`);
 
 }
 
