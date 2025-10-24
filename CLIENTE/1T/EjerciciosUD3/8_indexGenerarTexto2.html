@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>Cambiar color popup</title>
+</head>
+
+<body>
+    <script>
+        function cambiar() {
+            const select = document.getElementById("idcolor");
+            const fondo = select.options[select.selectedIndex].value;
+            if (!ventananueva || ventananueva.closed) {
+                alert("La ventana no está disponible (bloqueada o cerrada).");
+                return;
+            }
+            ventananueva.document.body.style.backgroundColor = fondo; // moderno
+        }
+
+        const texto = prompt("Título para la nueva ventana") || "Nueva ventana";
+        const ventananueva = window.open("", "_blank", "width=500,height=300");
+
+        if (!ventananueva) {
+            alert("El navegador bloqueó la ventana emergente.");
+        } else {
+            ventananueva.document.write("<!DOCTYPE html><html><head><meta charset='utf-8'><title>Popup</title></head><body>");
+            ventananueva.document.write("<h1>" + texto + "</h1>");
+            ventananueva.document.write("</body></html>");
+            ventananueva.document.close();
+        }
+
+        // Construimos el formulario (cerrando correctamente las etiquetas)
+        document.write("<form name='Cambiacolor'>");
+        document.write("<p><b>Selecciona un color para el fondo:</b></p>");
+        document.write("<select name='color' id='idcolor'>");
+        document.write("<option value='red'>Rojo</option>");
+        document.write("<option value='blue'>Azul</option>");
+        document.write("<option value='yellow'>Amarillo</option>");
+        document.write("<option value='green'>Verde</option>");
+        document.write("</select> ");
+
+        // Botón que cambia el color directamente con 'onclick' inline (válido)
+        document.write("<input type='button' value='Cambia color (inline)' ");
+        document.write("onclick=\"if(ventananueva){ventananueva.document.body.style.backgroundColor=document.Cambiacolor.color.value;} else { alert('Popup bloqueada o cerrada'); }\"> ");
+
+        // Botón que llama a la función cambiar()
+        document.write("<input type='button' value='Cambia color (función)' onclick='cambiar()'>");
+        document.write("</form>");
+    </script>
+</body>
+
+</html>
+
+
+
+    <!-- 
+        document.write(...) para construir la UI
+        Funciona durante la carga, pero es frágil. Es mejor crear nodos con DOM y añadir addEventListener.
+        Ver siguiente ejercicio.
+        -->

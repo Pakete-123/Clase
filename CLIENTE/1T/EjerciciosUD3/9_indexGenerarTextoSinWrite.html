@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>Cambiar color popup</title>
+</head>
+
+<body>
+    <form id="formColor">
+        <label for="idcolor"><b>Selecciona un color para el fondo:</b></label>
+        <select id="idcolor">
+            <option value="red">Rojo</option>
+            <option value="blue">Azul</option>
+            <option value="yellow">Amarillo</option>
+            <option value="green">Verde</option>
+        </select>
+        <button type="button" id="btnInline">Cambia color</button>
+    </form>
+
+    <script>
+        const titulo = prompt("Título para la nueva ventana") || "Nueva ventana";
+        const ventananueva = window.open("", "_blank", "width=500,height=300");
+        if (ventananueva) {
+            ventananueva.document.body.innerHTML = "<h1>" + titulo + "</h1>";
+        } else {
+            alert("El navegador bloqueó la ventana emergente.");
+        }
+
+        const select = document.getElementById("idcolor");
+        const btn = document.getElementById("btnInline");
+
+        btn.addEventListener("click", () => {
+            if (!ventananueva || ventananueva.closed) {
+                alert("Popup bloqueada o cerrada.");
+                return;
+            }
+            ventananueva.document.body.style.backgroundColor = select.value;
+        });
+    </script>
+</body>
+
+</html>

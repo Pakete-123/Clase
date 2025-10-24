@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>UD3 · Panel del Navegador (Nivel 3 · Starter)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{color-scheme: light dark}
+    body{font-family: system-ui, Arial, sans-serif; margin:0; padding:2rem;}
+    .card{border:1px solid #ccc; border-radius:12px; padding:1rem; margin-block:1rem;}
+    #panel p{margin:.25rem 0}
+    .btn{cursor:pointer; padding:.5rem 1rem; border-radius:8px; border:1px solid #888; background:#f3f3f3}
+    .stack{display:flex; gap:.5rem; flex-wrap:wrap;}
+    #log{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:.9rem; white-space:pre-wrap; background:#f7f7f7; border-radius:8px; padding:.5rem; border:1px solid #ddd}
+  </style>
+</head>
+<body>
+  <h1>Panel del Navegador — Nivel 3 (Starter)</h1>
+  <div class="stack">
+    <button id="abrirBloc" class="btn">Abrir Bloc</button>
+    <button id="limpiar" class="btn">Limpiar panel</button>
+  </div>
+  <div id="panel" class="card" aria-live="polite">
+    <em>Cuando recibas texto del Bloc se insertará aquí, con fecha/hora…</em>
+  </div>
+  <div class="card">
+    <h3>Logger</h3>
+    <div id="log" aria-live="polite"></div>
+  </div>
+
+  <script src="app-main.js"></script>
+</body>
+</html>

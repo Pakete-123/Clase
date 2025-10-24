@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Segunda página</title>
+</head>
+
+<body>
+    <button onclick="goBack()">Página anterior</button>
+    <script type="text/javascript">
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+</html>
+Otro ejercicio con history.
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,
+initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        alert(history.length);
+        function atras() { history.back() };
+        function adelante() { history.forward() };
+        function irhaciaatras() {
+            var num = prompt("Introduce un número para retroceder");
+            num = num * -1;
+            alert(num);
+            history.go(num);
+        };
+        function irhaad() {
+                var num = prompt("Introduce un número para adelantar");
+                alert(num);
+                history.go(num);
+            };
+            function buscar() {
+                var buscurl = prompt("Introduce un valor");
+                alert(buscurl);
+                history.go(toString(buscurl));
+            };
+        </script>
+<button onclick="atras()">Atrás</button>
+<button onclick="adelante()">Adelante</button>
+<button onclick="irhaciaatras()">ir x páginas hacia atrás</button>
+<button onclick="irhaad()">ir x páginas hacia adelante</button>
+<button onclick="buscar()">Buscar una URL</button>
+</body>
+
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>Location ejemplo</title>
+</head>
+
+<body>
+    <p>Mostrando propiedades de <code>location</code> en alerts y en la página. En 5 segundos navegaremos a google.es
+    </p>
+
+    <script>
+        // Mostrar con alerts (síncrono)
+        alert("host: " + location.host);
+        alert("href: " + location.href);
+        alert("pathname: " + location.pathname);
+
+        // También mostramos la info en la página (no intrusivo)
+        const info = `
+      <ul>
+        <li><strong>Host:</strong> ${location.host}</li>
+        <li><strong>Href:</strong> ${location.href}</li>
+        <li><strong>Pathname:</strong> ${location.pathname}</li>
+      </ul>
+    `;
+        document.body.insertAdjacentHTML('beforeend', info);
+
+        // Redirección válida y segura tras 5 s
+        setTimeout(() => {
+            // Usa una URL absoluta o una relativa válida
+            // Ejemplo absoluto:
+            location.href = "https://google.es";
+            // Si quisieras una página local, usa: location.href = "./ww.html";
+        }, 5000);
+    </script>
+</body>
+
+</html>
+
+
+<!-- Representa la URL. Podemos conocer o modificar la propiedad href, protocol, host,
+pathname, username… 
+
+
+document.body.insertAdjacentHTML('beforeend', info);
+
+Sintaxis: element.insertAdjacentHTML(position, htmlString)
+
+Permite insertar fragmentos de HTML directamente en el DOM, sin tener que crear manualmente nodos con createElement().
+
+element es el nodo donde vas a insertar el HTML.
+En tu caso: document.body, o sea, el cuerpo completo de la página.
+
+position indica dónde se insertará el HTML en relación al elemento.
+
+htmlString es una cadena de texto que contiene HTML (no nodos, sino texto).
+El navegador interpreta esa cadena y genera los nodos correspondientes.
+
+
+También se puede escribir así:
+
+const div = document.createElement('div');
+div.innerHTML = info;      // convierte la cadena en HTML
+document.body.appendChild(div);  // lo añade al final del body
+
+-->

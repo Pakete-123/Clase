@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Bloc</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{color-scheme: light dark}
+    body{font-family: system-ui, Arial, sans-serif; margin:0; padding:1rem;}
+    textarea{width:100%; height:180px; padding:.5rem; border-radius:8px; border:1px solid #bbb; font-family:inherit}
+    .stack{display:flex; gap:.5rem; flex-wrap:wrap; margin-top:.5rem;}
+    .btn{cursor:pointer; padding:.5rem 1rem; border-radius:8px; border:1px solid #888; background:#f3f3f3}
+    .muted{color:#666; font-size:.9rem}
+  </style>
+</head>
+<body>
+  <h2>Bloc de notas</h2>
+  <p class="muted">Starter: implementa autosave y envío al panel de la ventana principal.</p>
+  <label>Modo de almacenamiento: 
+    <select id="modo">
+      <option value="local">localStorage (persistente)</option>
+      <option value="session">sessionStorage (por pestaña)</option>
+    </select>
+  </label>
+  <textarea id="txt" placeholder="Escribe aquí..."></textarea>
+  <div class="stack">
+    <button id="enviar" class="btn">Enviar al panel (postMessage)</button>
+    <button id="limpiar" class="btn">Limpiar texto</button>
+  </div>
+
+  <script src="bloc.js"></script>
+</body>
+</html>

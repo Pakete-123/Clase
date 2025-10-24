@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!-- Demostración de CRUD sobre localStorage con una pequeña interfaz basada en formularios. -->
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejemplo de LocalStorage</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <h1>LocalStorage: persistencia en el navegador</h1>
+
+    <form id="localForm">
+        <label>
+            Clave
+            <input id="localKey" name="key" required>
+        </label>
+        <label>
+            Valor
+            <textarea id="localValue" name="value" required></textarea>
+        </label>
+        <button type="submit">Guardar</button>
+    </form>
+
+    <div class="acciones">
+        <button id="leerLocal">Leer clave</button>
+        <button id="borrarLocal">Eliminar clave</button>
+        <button id="listarLocal">Listar todo</button>
+        <button id="limpiarLocal">Limpiar storage</button>
+    </div>
+
+    <section id="salidaLocal" class="card"></section>
+
+    <script>
+        const form = document.getElementById("localForm");
+        const salida = document.getElementById("salidaLocal");
+        const inputKey = document.getElementById("localKey");
+        const inputValue = document.getElementById("localValue");
+
+        // Centraliza la escritura de mensajes en la tarjeta de salida.
+        const pintarSalida = (texto) => {
+            salida.innerText = texto;
+        };
+
+        // Recorre todas las claves almacenadas y las lista en pantalla.
+        const listarClaves = () => {
+            if (!localStorage.length) {
+                pintarSalida("LocalStorage está vacío.");
+                return;
+            }
+            const items = [];
+            for (let i = 0; i < localStorage.length; i += 1) {
+                const clave = localStorage.key(i);
+                items.push(`• ${clave}: ${localStorage.getItem(clave)}`);
+            }
+            pintarSalida(items.join("\n"));
+        };
+
+        form.addEventListener("submit", (evento) => {
+            evento.preventDefault();
+            // El valor se persiste como string; no se realiza conversión extra.
+            const clave = inputKey.value.trim();
+            const valor = inputValue.value;
+            localStorage.setItem(clave, valor);
+            pintarSalida(`Elemento guardado (${clave}).`);
+            form.reset();
+        });
+
+        document.getElementById("leerLocal").addEventListener("click", () => {
+            const clave = inputKey.value.trim();
+            if (!clave) {
+                pintarSalida("Introduce una clave para leerla.");
+                return;
+            }
+            const valor = localStorage.getItem(clave);
+            pintarSalida(valor === null
+                ? `No existe la clave "${clave}".`
+                : `Valor (${clave}): ${valor}`);
+        });
+
+        document.getElementById("borrarLocal").addEventListener("click", () => {
+            const clave = inputKey.value.trim();
+            if (!clave) {
+                pintarSalida("Introduce una clave para eliminarla.");
+                return;
+            }
+            localStorage.removeItem(clave);
+            pintarSalida(`Clave "${clave}" eliminada (si existía).`);
+        });
+
+        document.getElementById("listarLocal").addEventListener("click", listarClaves);
+
+        document.getElementById("limpiarLocal").addEventListener("click", () => {
+            localStorage.clear();
+            pintarSalida("LocalStorage limpiado.");
+        });
+
+        listarClaves();
+    </script>
+</body>
+
+</html>

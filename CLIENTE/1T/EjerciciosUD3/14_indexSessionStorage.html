@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!-- Ejemplo práctico de sessionStorage con contador de visitas y operaciones básicas CRUD. -->
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejemplo de SessionStorage</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <h1>SessionStorage: datos por pestaña</h1>
+
+    <p>
+        El contador se incrementa cada vez que recargas la página durante esta sesión.
+        Al cerrar la pestaña se reinicia.
+    </p>
+
+    <section id="contador" class="card"></section>
+
+    <form id="sessionForm">
+        <label>
+            Clave
+            <input id="sessionKey" name="key" required>
+        </label>
+        <label>
+            Valor
+            <textarea id="sessionValue" name="value" required></textarea>
+        </label>
+        <button type="submit">Guardar</button>
+    </form>
+
+    <div class="acciones">
+        <button id="leerSession">Leer clave</button>
+        <button id="borrarSession">Eliminar clave</button>
+        <button id="listarSession">Listar sesión</button>
+        <button id="limpiarSession">Limpiar SessionStorage</button>
+    </div>
+
+    <section id="salidaSession" class="card"></section>
+
+    <script>
+        const contadorCaja = document.getElementById("contador");
+        const form = document.getElementById("sessionForm");
+        const salida = document.getElementById("salidaSession");
+        const inputKey = document.getElementById("sessionKey");
+        const inputValue = document.getElementById("sessionValue");
+
+        // Centraliza la escritura de resultados de las operaciones.
+        const pintarSalida = (texto) => {
+            salida.innerText = texto;
+        };
+
+        // Muestra todas las claves disponibles en la sesión actual.
+        const listarSession = () => {
+            if (!sessionStorage.length) {
+                pintarSalida("SessionStorage está vacío.");
+                return;
+            }
+            const items = [];
+            for (let i = 0; i < sessionStorage.length; i += 1) {
+                const clave = sessionStorage.key(i);
+                items.push(`• ${clave}: ${sessionStorage.getItem(clave)}`);
+            }
+            pintarSalida(items.join("\n"));
+        };
+
+        // Incrementa un contador de recargas limitado a la vida de la pestaña.
+        const incrementarContador = () => {
+            const actual = Number(sessionStorage.getItem("visitas") || "0") + 1;
+            sessionStorage.setItem("visitas", String(actual));
+            contadorCaja.innerText = `Visitas durante esta sesión: ${actual}`;
+        };
+
+        form.addEventListener("submit", (evento) => {
+            evento.preventDefault();
+            const clave = inputKey.value.trim();
+            const valor = inputValue.value;
+            sessionStorage.setItem(clave, valor);
+            pintarSalida(`Elemento guardado (${clave}).`);
+            form.reset();
+        });
+
+        document.getElementById("leerSession").addEventListener("click", () => {
+            const clave = inputKey.value.trim();
+            if (!clave) {
+                pintarSalida("Introduce una clave para leerla.");
+                return;
+            }
+            const valor = sessionStorage.getItem(clave);
+            pintarSalida(valor === null
+                ? `No existe la clave "${clave}" en esta sesión.`
+                : `Valor (${clave}): ${valor}`);
+        });
+
+        document.getElementById("borrarSession").addEventListener("click", () => {
+            const clave = inputKey.value.trim();
+            if (!clave) {
+                pintarSalida("Introduce una clave para eliminarla.");
+                return;
+            }
+            sessionStorage.removeItem(clave);
+            pintarSalida(`Clave "${clave}" eliminada (si existía).`);
+        });
+
+        document.getElementById("listarSession").addEventListener("click", listarSession);
+
+        document.getElementById("limpiarSession").addEventListener("click", () => {
+            sessionStorage.clear();
+            incrementarContador();
+            pintarSalida("SessionStorage limpiado. El contador se reinició a 1.");
+        });
+
+        incrementarContador();
+        listarSession();
+    </script>
+</body>
+
+</html>

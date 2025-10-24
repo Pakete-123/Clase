@@ -1,0 +1,30 @@
+<!-- 
+Analiza el siguiente ejemplo y averigua que acción lleva a cabo el script.
+-->
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Generar código</title>
+</head>
+
+<body>
+    <div id="foo">hello world!</div>
+    <img src="zoom.png" onclick="myFunction()" />
+    <style>
+        .style1 {
+            background-color: red;
+            color: white;
+            font-size: 44px;
+        }
+    </style>
+    <script>
+        function myFunction() {
+            document.getElementById('foo').setAttribute("class", "style1");
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Párrafo</title>
+</head>
+
+<body>
+    <ol>
+        <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit,
+            accusamus maiores omnis amet optio dignissimos quo itaque at quidem
+            voluptate dolorem quae laudantium animi, minus sed harum nihil numquam
+            repellendus?</li>
+        <li>Dolor voluptas eveniet alias ullam itaque quae aliquam. Eos
+            fugiat, perferendis odio molestiae beatae minus neque voluptate enim
+            tenetur ullam, provident, animi quis commodi cumque atque excepturi id
+            assumenda temporibus.</li>
+        <li>Laboriosam quisquam provident natus necessitatibus itaque cum,
+            totam error commodi quos voluptas nesciunt, excepturi architecto eos ab
+            incidunt ipsum, neque repellendus molestiae. Minima temporibus dolor
+            cum quod, architecto sunt autem.</li>
+        <li>Veniam ad esse sed non adipisci exercitationem perferendis eum
+            quas ratione expedita? Eos voluptatem nisi, excepturi a, tempore ut
+            suscipit maxime id enim iste reprehenderit consequuntur vel voluptates
+            esse. Distinctio.</li>
+        <li>Cum fuga facilis quibusdam tempore voluptates sed iure est,
+            repellendus saepe, debitis excepturi delectus! Molestiae culpa totam
+            laudantium. Eum accusantium maxime, vel facilis inventore porro aperiam
+            perspiciatis ab laudantium debitis.</li>
+        <li>Provident voluptates sed, quibusdam vero dolore quaerat! Ad
+            voluptas laboriosam dolores illo reiciendis totam veritatis natus eaque
+            quod harum eligendi nesciunt vero quam blanditiis, eos expedita fuga
+            quaerat alias sit!</li>
+        <li>Placeat, quam inventore. Harum, nostrum! Magni cum maiores quam
+            impedit, et voluptatem esse vero illo eaque magnam, voluptates sint
+            doloribus ducimus tenetur in autem mollitia omnis asperiores, iure non
+            veniam.</li>
+        <li>Delectus, molestias pariatur! Neque tenetur delectus fuga
+            recusandae ullam quam possimus cum consequatur quae, excepturi hic
+            culpa odio, ipsam veniam quasi nemo ex beatae commodi reiciendis
+            adipisci vero ipsa obcaecati?</li>
+        <li>Illum quod neque, tenetur, quas atque voluptatum obcaecati
+            dolor ipsa rem laborum est molestias ut quasi totam earum sed voluptate
+            quisquam, reprehenderit repellat porro ipsum nisi qui beatae? Eveniet,
+            earum!</li>
+        </ol>
+        <script>
+            var texto = prompt("Escribe algo:");
+            var posicion = prompt("Escribe un número del 1 al 9");
+            var lista = document.getElementsByTagName("ol")[0];
+            var nuevo = document.createElement("li");
+            nuevo.innerHTML = `${texto}`;
+            var siguiente = lista.children[posicion - 1];
+            lista.insertBefore(nuevo, siguiente);
+        </script>
+</body>
+</html>
+
+
+<!-- 
+
+prompt("Escribe algo:")	Pide el texto del nuevo elemento
+prompt("Escribe un número del 1 al 9")	Pide la posición donde insertarlo
+
+var lista = document.getElementsByTagName("ol")[0]	Obtiene la lista <ol>
+    devuelve una colección de todas las listas ordenadas (<ol>) del documento.
+    [0] significa: “toma la primera”.
+    Así, lista es el objeto que representa la lista del HTML.
+
+var nuevo = document.createElement("li")	Crea un nuevo elemento de lista
+    Crea un nuevo elemento <li> con document.createElement("li").
+    Luego le asigna el texto que el usuario escribió con innerHTML. 
+
+nuevo.innerHTML = texto	Inserta el texto del usuario en ese elemento
+    Le asigna el texto que el usuario escribió con innerHTML.
+
+var siguiente = lista.children[posicion - 1]	Obtiene el <li> que está en la posición deseada
+        lista.children devuelve un array con todos los elementos <li> dentro del <ol>.
+        posicion - 1 ajusta el número ingresado por el usuario (porque los arrays empiezan en 0).
+        Por ejemplo:
+        Si el usuario escribe 1, selecciona el primer <li>.
+            Si escribe 3, selecciona el tercer
+        <li>.
+
+lista.insertBefore(nuevo, siguiente)	Inserta el nuevo elemento antes del seleccionado
+    Inserta el nuevo <li> antes del elemento siguiente.
+
+    Es decir, coloca el nuevo texto en la posición que el usuario eligió.
+
+    💡 Si escribes un número 1 → lo coloca antes del primero.
+    Si escribes 9 → lo pone justo antes del noveno elemento.
+
+-->

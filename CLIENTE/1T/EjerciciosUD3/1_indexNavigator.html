@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Navigator</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        document.write("apCodename: " + navigator.appCodeName);
+        document.write("<br> Nombre del navegador: " + navigator.appName);
+        document.write("<br> Version del navegador: " + navigator.appVersion);
+        document.write("<br> Cookies habilitadas: " + navigator.cookieEnabled);
+        document.write("<br> Plataforma: " + navigator.platform);
+        document.write("<br> Agente: " + navigator.userAgent);
+    </script>
+
+</html>
+<!DOCTYPE html>
+<html>
+
+<body>
+    <div id="demo"></div>
+    <script>
+        var txt = "";
+        txt += "<p>Browser CodeName: " + navigator.appCodeName + "</p>";
+        txt += "<p>Browser Name: " + navigator.appName + "</p>";
+        txt += "<p>Browser Version: " + navigator.appVersion + "</p>";
+        txt += "<p>Cookies Enabled: " + navigator.cookieEnabled + "</p>";
+        txt += "<p>Browser Language: " + navigator.language + "</p>";
+        txt += "<p>Browser Online: " + navigator.onLine + "</p>";
+        txt += "<p>Platform: " + navigator.platform + "</p>";
+        txt += "<p>User-agent header: " + navigator.userAgent + "</p>";
+        document.getElementById("demo").innerHTML = txt;
+    </script>
+</body>
+
+</html>
+
+<!--
+Explicación detallada
+
+navigator.appName devuelve siempre “Netscape” en la mayoría de navegadores modernos, incluso en Chrome, Firefox, Edge y
+Opera.
+Esto se debe a que, en los primeros años de la web (años 90), el navegador Netscape era dominante, y muchas páginas
+detectaban el navegador buscando literalmente la cadena "Netscape".
+Si un navegador nuevo devolvía otro nombre, esas webs dejaban de funcionar.
+Por compatibilidad, los navegadores modernos mantienen ese valor por defecto.
+
+console.log(navigator.appName); // "Netscape" en casi todos los navegadores
+
+
+El valor real del navegador moderno está en navigator.userAgent.
+Si ejecutas esto:
+
+console.log(navigator.userAgent);
+
+
+Verás una cadena parecida a:
+
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36
+OPR/122.0.0.0
+
+
+Ahí puedes ver:
+
+OPR/122.0.0.0 → indica Opera
+
+Chrome/138.0.0.0 → porque Opera está basado en Chromium
+
+Mozilla/5.0 → también mantenido por compatibilidad con antiguos detectores de Netscape/Mozilla
+
+Por tanto:
+
+navigator.appName = “Netscape” (valor fijo por compatibilidad)
+
+navigator.userAgent = cadena real que incluye el nombre y versión del navegador
+-->

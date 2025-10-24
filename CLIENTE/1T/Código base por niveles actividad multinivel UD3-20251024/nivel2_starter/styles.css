@@ -1,0 +1,8 @@
+:root{color-scheme: light dark}
+body{font-family: system-ui, Arial, sans-serif; margin:0; padding:2rem;}
+.card{border:1px solid #ccc; border-radius:12px; padding:1rem; margin-block:1rem;}
+.stack{display:flex; gap:.5rem; flex-wrap:wrap;}
+.btn{cursor:pointer; padding:.5rem 1rem; border-radius:8px; border:1px solid #888; background:#f3f3f3}
+.light{background:#fff; color:#111}
+.dark{background:#111; color:#eee}
+#info ul{padding-left:1.25rem}

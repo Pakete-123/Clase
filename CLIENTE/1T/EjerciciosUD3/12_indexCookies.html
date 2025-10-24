@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<!-- Ejemplos de manejo de cookies: crear, leer, actualizar y eliminar con una interfaz mínima. -->
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejemplo de Cookies</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <h1>Cookies: crear, leer, actualizar y eliminar</h1>
+
+    <form id="cookieForm">
+        <label>
+            Nombre
+            <input id="cookieName" name="name" required>
+        </label>
+        <label>
+            Valor
+            <input id="cookieValue" name="value" required>
+        </label>
+        <label>
+            Expiración (días)
+            <input id="cookieDays" name="days" type="number" min="1" value="7">
+        </label>
+        <button type="submit">Crear / Actualizar</button>
+    </form>
+
+    <div class="acciones">
+        <button id="leerCookie">Leer cookie</button>
+        <button id="borrarCookie">Eliminar cookie</button>
+        <button id="listarCookies">Listar cookies</button>
+    </div>
+
+    <section id="resultado" class="card"></section>
+
+    <script>
+        const form = document.getElementById("cookieForm");
+        const resultado = document.getElementById("resultado");
+        const inputName = document.getElementById("cookieName");
+        const inputValue = document.getElementById("cookieValue");
+        const inputDays = document.getElementById("cookieDays");
+
+        // Guarda o actualiza una cookie con fecha de expiración.
+        const setCookie = (name, value, days) => {
+            const encodedValue = encodeURIComponent(value);
+            const expires = new Date(Date.now() + days * 864e5).toUTCString();
+            document.cookie = `${name}=${encodedValue}; path=/; expires=${expires}`;
+        };
+
+        // Devuelve el valor de la cookie indicada (undefined si no existe).
+        const getCookie = (name) => {
+            const cookies = document.cookie.split("; ").filter(Boolean);
+            const buscada = cookies.find((linea) => linea.startsWith(`${name}=`));
+            if (!buscada) {
+                return undefined;
+            }
+            const valor = buscada.split("=").slice(1).join("=");
+            return decodeURIComponent(valor);
+        };
+
+        // Marca la cookie para borrado inmediato.
+        const deleteCookie = (name) => {
+            document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+        };
+
+        // Simplifica la escritura de mensajes en la sección de resultados.
+        const pintarResultado = (mensaje) => {
+            resultado.innerText = mensaje;
+        };
+
+        form.addEventListener("submit", (evento) => {
+            evento.preventDefault();
+            const { name, value, days } = evento.target.elements;
+            const dias = Number(days.value) || 1;
+            setCookie(name.value.trim(), value.value, dias);
+            pintarResultado(`Cookie "${name.value}" guardada con valor: ${value.value}`);
+            form.reset();
+            inputDays.value = dias;
+        });
+
+        document.getElementById("leerCookie").addEventListener("click", () => {
+            const nombre = inputName.value.trim();
+            if (!nombre) {
+                pintarResultado("Introduce un nombre de cookie para leerla.");
+                return;
+            }
+            const valor = getCookie(nombre);
+            pintarResultado(valor === undefined
+                ? `No se encontró la cookie "${nombre}".`
+                : `Valor de "${nombre}": ${valor}`);
+        });
+
+        document.getElementById("borrarCookie").addEventListener("click", () => {
+            const nombre = inputName.value.trim();
+            if (!nombre) {
+                pintarResultado("Introduce un nombre de cookie para eliminarla.");
+                return;
+            }
+            deleteCookie(nombre);
+            pintarResultado(`Cookie "${nombre}" eliminada.`);
+        });
+
+        document.getElementById("listarCookies").addEventListener("click", () => {
+            if (!document.cookie) {
+                pintarResultado("No hay cookies disponibles.");
+                return;
+            }
+            // Mostrar cada cookie como viñeta para facilitar su lectura.
+            const lista = document.cookie.split("; ").map((fila) => {
+                const [nombre, valor] = fila.split("=");
+                return `• ${nombre}: ${decodeURIComponent(valor || "")}`;
+            }).join("\n");
+            pintarResultado(lista);
+        });
+
+        if (document.cookie) {
+            resultado.innerText = `Cookies almacenadas: ${document.cookie}`;
+        } else {
+            resultado.innerText = "No hay cookies guardadas todavía.";
+        }
+    </script>
+</body>
+
+</html>

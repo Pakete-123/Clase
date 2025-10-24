@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Documento con una Capa</title>
+</head>
+
+<body>
+    <div id="capa"></div>
+    <script>
+        var texto = prompt("introduce el texto a añadir");
+        var capa = document.getElementById("capa");
+        var h1 = document.createElement("h1");
+        h1.innerHTML = texto;
+        capa.appendChild(h1);
+    </script>
+</body>
+
+</html>
+
+
+<!-- 
+A través del DOM, los programas pueden acceder y modificar el
+contenido, estructura y estilo de los documentos HTML y XML, que es para lo que se
+diseñó principalmente
+
+-->
