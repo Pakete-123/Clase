@@ -13,6 +13,12 @@
   <p id="saludo"><em>Aquí debe aparecer el saludo con el autor de la query string…</em></p>
   <script>
     // TODO: Usa new URLSearchParams(location.search) para leer 'autor' y pintarlo en #saludo
+    const SALUDO = document.getElementById("saludo");
+    const LEER = new URLSearchParams(location.search);
+    const AUTOR = LEER.get("autor");
+    const MSG = document.createElement("p");
+    MSG.textContent = "Un saludo de " + AUTOR;
+    SALUDO.appendChild(MSG);
   </script>
 </body>
 </html>
