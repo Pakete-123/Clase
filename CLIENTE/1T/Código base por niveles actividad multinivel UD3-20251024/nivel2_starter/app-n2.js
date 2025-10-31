@@ -65,12 +65,12 @@ document.getElementById('bAyuda').addEventListener('click', () => {
   const AUTOR = prompt("Dame el nombre del autor");
 
   if (AUTOR) {
-    const URL = `ayuda.html?${new URLSearchParams({autor : AUTOR})}`
-    console.log(URL);
+    // const URL = `ayuda.html?${new URLSearchParams({autor : AUTOR})}`
+    const URL = `ayuda.html?autor=${encodeURIComponent(AUTOR)})}`
     
     window.open(URL, "_blank");
   }
 });
 
 // Inicialización
-// TODO: aplicarTema(leerTema()); y pintarInfo()
+// TODO: aplicarTema(leerTema()); y pintarInfo();
