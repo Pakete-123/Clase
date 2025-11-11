@@ -1,11 +1,16 @@
 {
 	"folders": [
 		{
+			"name": "Clase_1T",
+			"path": "../Clase_1T"
+		},
+		{
+			"name": "Workspaces",
 			"path": "."
 		},
 		{
 			"name": "Actividad_UD2",
-			"path": "../../VSCode/Actividad_UD2"
+			"path": "../Actividad_UD2"
 		},
 		{
 			"name": "SERVIDOR",
