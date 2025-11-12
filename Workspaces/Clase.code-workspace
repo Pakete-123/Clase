@@ -9,10 +9,6 @@
 			"path": "."
 		},
 		{
-			"name": "Actividad_UD2",
-			"path": "../Actividad_UD2"
-		},
-		{
 			"name": "SERVIDOR",
 			"path": "../../../../../xampp/htdocs/SERVIDOR"
 		}
