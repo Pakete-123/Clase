@@ -54,3 +54,4 @@ document.getElementById('btnRecuperar').addEventListener('click', () => {
   const LEER = localStorage.getItem("nombre");
   log("El nombre guardado es " + LEER);
 });
+ 
