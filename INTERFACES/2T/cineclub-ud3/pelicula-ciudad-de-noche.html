@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Ciudad de Noche · CineClub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Ficha y tráiler de Ciudad de Noche (demo UD3)." />
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+  <header role="banner">
+    <nav aria-label="Miga de pan">
+      <a href="index.html">Inicio</a> › <span>Ciudad de Noche</span>
+    </nav>
+    <h1>Ciudad de Noche</h1>
+    <p class="meta">Drama · 2023 · Dir: A. Rivera</p>
+  </header>
+  <main id="contenido" tabindex="-1">
+
+<section class="grid" style="align-items:start;">
+  <article class="card" itemscope itemtype="https://schema.org/Movie">
+    <header><h2>Ficha</h2></header>
+    <figure>
+      <picture>
+        <source type="image/avif" srcset="media/posters/ciudad-noche.avif">
+        <source type="image/webp" srcset="media/posters/ciudad-noche.webp">
+        <img src="media/posters/ciudad-noche.jpg" width="800" height="1200" alt="Silueta urbana nocturna" loading="lazy" decoding="async" itemprop="image">
+      </picture>
+      <figcaption>Póster con fallbacks (AVIF/WebP/JPEG).</figcaption>
+    </figure>
+    <div class="content" itemprop="description">
+      Un retrato urbano que sigue a tres personajes durante una noche interminable.
+    </div>
+  </article>
+
+  <article class="card">
+    <header><h2>Tráiler</h2></header>
+    <div class="media">
+      <video controls preload="metadata" poster="media/trailers/ciudad-noche-poster.jpg" width="720" height="405">
+        <source src="media/trailers/ciudad-noche-720p.av1.mp4" type="video/mp4; codecs=av01.0.05M.08">
+        <source src="media/trailers/ciudad-noche-720p.vp9.webm" type="video/webm; codecs=vp9">
+        <source src="media/trailers/ciudad-noche-720p.h264.mp4" type="video/mp4">
+        <!-- Subtítulos opcionales:
+        <track kind="captions" srclang="es" src="media/tracks/ciudad-noche.es.vtt" label="ES (subtítulos)" default>
+        -->
+        Tu navegador no puede reproducir el vídeo. Puedes <a href="media/trailers/ciudad-noche-720p.h264.mp4">descargarlo aquí</a>.
+      </video>
+
+      <h3>Clip de banda sonora</h3>
+      <audio controls preload="none" aria-label="Clip de la BSO de Ciudad de Noche">
+        <source src="media/audio/ciudad-noche.ogg" type="audio/ogg">
+        <source src="media/audio/ciudad-noche.mp3" type="audio/mpeg">
+        Tu navegador no puede reproducir el audio.
+      </audio>
+    </div>
+  </article>
+
+  <article class="card">
+    <header><h2>Atribuciones</h2></header>
+    <div class="content meta">
+      Póster: “Ciudad de Noche” – <a href="#" rel="external">Ana Pérez</a>, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.<br>
+      Tráiler/audio: © Productora X (uso docente).
+    </div>
+  </article>
+</section>
+
+  </main>
+  <footer role="contentinfo">
+    <p>© 2025 CineClub · Starter UD3 (DIW). <a href="index.html#licencias">Licencias</a></p>
+  </footer>
+</body>
+</html>

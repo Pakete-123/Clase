@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Comparativa de formatos de imagen · CineClub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Página de práctica: comparar JPEG, PNG, WebP, AVIF y SVG→PNG con responsive images, lazy loading y medición de tiempos." />
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .wrap{max-width:1200px;margin:0 auto;padding:1rem}
+    .grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+    .card{border:1px solid var(--border);border-radius:12px;background:#fff;overflow:hidden}
+    .card header{padding:.75rem 1rem}
+    .card .body{padding:0 1rem 1rem}
+    .kpi{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size:.9rem}
+    figure{margin:0}
+    img{max-width:100%;height:auto;display:block}
+  </style>
+</head>
+<body>
+  <header class="wrap">
+    <nav aria-label="Miga de pan"><a href="index.html">Inicio</a> › Comparativa</nav>
+    <h1>Comparativa de formatos</h1>
+    <p class="meta">Misma imagen exportada en <strong>JPEG</strong>, <strong>PNG</strong>, <strong>WebP</strong> y <strong>AVIF</strong>. Incluye ejemplo <strong>SVG ➜ PNG</strong>. Usa <code>srcset</code>/<code>sizes</code>, <code>loading="lazy"</code> y mide tiempos/pesos.</p>
+  </header>
+
+  <main class="wrap" id="contenido">
+    <section aria-labelledby="h-tareas">
+      <h2 id="h-tareas">Tareas</h2>
+      <ol>
+      <li><strong>Cambia las rutas</strong> de <code>/media/compare/...</code> por tus archivos exportados.<br>
+        <em>¿Qué significa?</em> Si tu imagen JPEG está en <code>media/compare/foto-600.jpg</code>,
+        pon ahí tu versión real (mismo nombre y tamaño) o cambia el <code>src/srcset</code> para apuntar a tu archivo.
+      </li>
+      <li><strong>Mide</strong> dos cosas para cada tarjeta: (a) <em>tiempo de carga</em> y (b) <em>peso</em> en KB/MB.
+        Usa la guía que aparece justo después de la sección «Resultados».
+      </li>
+      <li><strong>Escribe un comentario</strong> corto sobre la calidad: artefactos, halos en bordes, banding en cielos…
+        Compáralo con los otros formatos.</li>
+      <li><strong>Maqueta claro</strong>: usa <code>grid</code> o <code>flex</code> para alinear tarjetas, deja aire (espaciado),
+        usa titulares (H2/H3) y el mismo estilo en todas las tarjetas.</li>
+</ol>
+    </section>
+
+    <section aria-labelledby="h-grid">
+      <h2 id="h-grid">Resultados</h2>
+      <div class="grid" id="cards">
+        <!-- JPEG -->
+        <article class="card" data-kind="JPEG" data-url="media/compare/foto.jpg">
+          <header><h3>JPEG (lossy)</h3></header>
+          <figure>
+            <img id="img-jpeg"
+                 src="media/compare/foto-600.jpg"
+                 srcset="media/compare/foto-300.jpg 300w, media/compare/foto-600.jpg 600w, media/compare/foto-1200.jpg 1200w"
+                 sizes="(max-width: 600px) 300px, (max-width: 1200px) 600px, 1200px"
+                 width="1200" height="800"
+                 alt="Misma escena exportada a JPEG"
+                 loading="lazy" decoding="async">
+            <figcaption>JPEG: buena relación calidad/tamaño para fotografía.</figcaption>
+          </figure>
+          <div class="body">
+            <p class="kpi">⏱️ <span data-kpi="time">–</span> · 📦 <span data-kpi="size">–</span></p>
+            <label>Comentario (calidad): <br><textarea rows="3" style="width:100%"></textarea></label>
+          </div>
+        </article>
+
+        <!-- PNG -->
+        <article class="card" data-kind="PNG" data-url="media/compare/foto.png">
+          <header><h3>PNG (lossless)</h3></header>
+          <figure>
+            <img id="img-png"
+                 src="media/compare/foto-600.png"
+                 srcset="media/compare/foto-300.png 300w, media/compare/foto-600.png 600w, media/compare/foto-1200.png 1200w"
+                 sizes="(max-width: 600px) 300px, (max-width: 1200px) 600px, 1200px"
+                 width="1200" height="800"
+                 alt="Misma escena exportada a PNG"
+                 loading="lazy" decoding="async">
+            <figcaption>PNG: fidelidad exacta y transparencia (si aplica).</figcaption>
+          </figure>
+          <div class="body">
+            <p class="kpi">⏱️ <span data-kpi="time">–</span> · 📦 <span data-kpi="size">–</span></p>
+            <label>Comentario (calidad): <br><textarea rows="3" style="width:100%"></textarea></label>
+          </div>
+        </article>
+
+        <!-- WebP -->
+        <article class="card" data-kind="WebP" data-url="media/compare/foto.webp">
+          <header><h3>WebP (lossy/lossless)</h3></header>
+          <figure>
+            <img id="img-webp"
+                 src="media/compare/foto-600.webp"
+                 srcset="media/compare/foto-300.webp 300w, media/compare/foto-600.webp 600w, media/compare/foto-1200.webp 1200w"
+                 sizes="(max-width: 600px) 300px, (max-width: 1200px) 600px, 1200px"
+                 width="1200" height="800"
+                 alt="Misma escena exportada a WebP"
+                 loading="lazy" decoding="async">
+            <figcaption>WebP: compresión eficiente y soporte de alfa.</figcaption>
+          </figure>
+          <div class="body">
+            <p class="kpi">⏱️ <span data-kpi="time">–</span> · 📦 <span data-kpi="size">–</span></p>
+            <label>Comentario (calidad): <br><textarea rows="3" style="width:100%"></textarea></label>
+          </div>
+        </article>
+
+        <!-- AVIF -->
+        <article class="card" data-kind="AVIF" data-url="media/compare/foto.avif">
+          <header><h3>AVIF (muy eficiente)</h3></header>
+          <figure>
+            <img id="img-avif"
+                 src="media/compare/foto-600.avif"
+                 srcset="media/compare/foto-300.avif 300w, media/compare/foto-600.avif 600w, media/compare/foto-1200.avif 1200w"
+                 sizes="(max-width: 600px) 300px, (max-width: 1200px) 600px, 1200px"
+                 width="1200" height="800"
+                 alt="Misma escena exportada a AVIF"
+                 loading="lazy" decoding="async">
+            <figcaption>AVIF: alta compresión a misma calidad (si tu navegador lo soporta).</figcaption>
+          </figure>
+          <div class="body">
+            <p class="kpi">⏱️ <span data-kpi="time">–</span> · 📦 <span data-kpi="size">–</span></p>
+            <label>Comentario (calidad): <br><textarea rows="3" style="width:100%"></textarea></label>
+          </div>
+        </article>
+
+        <!-- SVG ➜ PNG -->
+        <article class="card" data-kind="SVG→PNG" data-url="media/compare/logo.png">
+          <header><h3>SVG ➜ PNG (cuando se necesita raster)</h3></header>
+          <figure>
+            <img id="img-svgpng"
+                 src="media/compare/logo.png"
+                 width="600" height="400"
+                 alt="Logo rasterizado desde SVG"
+                 loading="lazy" decoding="async">
+            <figcaption>Ejemplo de conversión para compatibilidad o efectos raster.</figcaption>
+          </figure>
+          <div class="body">
+            <p class="kpi">⏱️ <span data-kpi="time">–</span> · 📦 <span data-kpi="size">–</span></p>
+            <label>Comentario (calidad): <br><textarea rows="3" style="width:100%"></textarea></label>
+          </div>
+        </article>
+      </div>
+    </section>
+
+<section aria-labelledby="h-medicion">
+  <h2 id="h-medicion">Cómo medir tiempo de carga y peso (paso a paso)</h2>
+  <ol>
+    <li><strong>Abre las DevTools</strong> (F12 o clic derecho → Inspeccionar).</li>
+    <li>Panel <strong>Network</strong> (Red) y <strong>recarga</strong> la página.</li>
+    <li>Localiza la imagen (por nombre).<br>
+      <em>Peso</em>: revisa <strong>Size</strong> o <strong>Content-Length</strong>.<br>
+      <em>Tiempo</em>: revisa <strong>Time</strong> o el apartado <strong>Timing</strong> del recurso.
+    </li>
+    <li>Anota ambos valores bajo cada tarjeta. Si no aparece el peso automáticamente,
+      mira Network y escríbelo en el comentario.</li>
+    <li>Repite con JPEG, PNG, WebP y AVIF (y el caso SVG→PNG).</li>
+  </ol>
+
+  <h3>Pistas de maquetación</h3>
+  <ul>
+    <li>Mantén columnas consistentes en la <code>grid</code> y el mismo padding.</li>
+    <li>Usa <code>figcaption</code> breve y encabezados claros.</li>
+    <li>Cuida el contraste, el espaciado vertical y el foco por teclado.</li>
+  </ul>
+
+  <h3>Mini‑tutorial de optimización</h3>
+  <ol>
+    <li><strong>Exporta</strong> 300/600/1200&nbsp;px de tu imagen base.</li>
+    <li><strong>Genera</strong> JPEG (Q70–80), WebP (Q70–80), AVIF (Q45–55). PNG solo si necesitas transparencia.</li>
+    <li><strong>Rellena</strong> <code>srcset</code> con esas variantes y define <code>sizes</code>.</li>
+    <li><strong>Activa</strong> <code>loading="lazy"</code> y añade <code>width</code>/<code>height</code> para evitar CLS.</li>
+    <li><strong>Compara</strong> pesos/tiempos y escribe conclusiones.</li>
+  </ol>
+</section>
+
+
+<section aria-labelledby="h-guia">
+  <h2 id="h-guia">Guía-tutorial: comparar formatos de imagen (paso a paso)</h2>
+
+  <h3>1) Prepara tus archivos</h3>
+  <p>Elige una misma foto/ilustración y expórtala en varios <strong>formatos</strong> y <strong>tamaños</strong>:</p>
+  <ul>
+    <li><strong>Tamaños</strong>: 300 px, 600 px y 1200 px de ancho.</li>
+    <li><strong>Formatos</strong>: JPEG (calidad 70–80), WebP (70–80), AVIF (Q ~ 45–55). PNG solo si necesitas transparencia.</li>
+  </ul>
+  <p><em>¿Por qué tres anchos?</em> Para que el navegador escoja automáticamente la versión que mejor se adapta a la pantalla del usuario.
+  Así ahorramos datos en móviles (usa 300/600 px) y mantenemos calidad en pantallas grandes (1200 px). También ayuda con pantallas de alta densidad (retina).</p>
+
+  <h3>2) Coloca los archivos en la carpeta del proyecto</h3>
+  <p>Guárdalos dentro de <code>/media/compare/</code> con nombres parecidos a estos:</p>
+  <pre><code>media/compare/foto-300.jpg
+media/compare/foto-600.jpg
+media/compare/foto-1200.jpg
+media/compare/foto-300.webp
+media/compare/foto-600.webp
+media/compare/foto-1200.webp
+media/compare/foto-300.avif
+media/compare/foto-600.avif
+media/compare/foto-1200.avif
+media/compare/foto-300.png  (solo si hace falta transparencia)
+...</code></pre>
+  <p><strong>Consejo (GIMP)</strong>: Archivo → <em>Exportar como…</em> → elige el tipo (JPEG/WebP/AVIF/PNG) y ajusta la calidad.
+  Repite para 300/600/1200 px (Imagen → <em>Escalar imagen…</em>).</p>
+
+  <h3>3) ¿Qué significa “reemplazar las rutas de <code>/media/compare</code>”?</h3>
+  <p>La página ya tiene imágenes que apuntan a <code>/media/compare/...</code>. Tienes dos opciones:</p>
+  <ol>
+    <li><strong>Usar los mismos nombres</strong> y <em>sobrescribir</em> esos archivos con los tuyos (fácil y rápido).</li>
+    <li><strong>Cambiar las rutas</strong> en el HTML para que coincidan con tus nombres.</li>
+  </ol>
+  <p><strong>Qué significan los atributos:</strong></p>
+  <ul>
+    <li><code>src</code>: es la <em>imagen por defecto</em> que se usará si el navegador no soporta <code>srcset</code> o no encaja ninguna opción.</li>
+    <li><code>srcset</code>: lista de <em>variantes</em> de la misma imagen con su ancho declarado (ej. <code>300w</code>, <code>600w</code>, <code>1200w</code>).
+      El navegador elige la más adecuada según el tamaño de la pantalla y lo indicado en <code>sizes</code>.</li>
+  </ul>
+  <p>Ejemplo (ajusta solo las rutas si cambiaste los nombres):</p>
+  <pre><code>&lt;img
+  src="media/compare/foto-600.webp"
+  srcset="media/compare/foto-300.webp 300w, media/compare/foto-600.webp 600w, media/compare/foto-1200.webp 1200w"
+  sizes="(max-width: 600px) 300px, (max-width: 1200px) 600px, 1200px"
+  alt="Misma escena exportada a WebP"&gt;</code></pre>
+
+  <h3>4) Carga la página y mira resultados</h3>
+  <p>Abre <strong>comparativa-formatos.html</strong> en el navegador y baja hasta “Resultados”.</p>
+
+  <h3>5) Mide <em>peso</em> y <em>tiempo de carga</em> (de forma sencilla)</h3>
+  <ul>
+    <li>Abre las <strong>Herramientas del desarrollador</strong> (F12) → pestaña <strong>Network</strong> (Red).</li>
+    <li>Recarga la página. Busca cada imagen por su nombre (ej. <code>foto-600.avif</code>).</li>
+    <li><strong>Peso</strong>: mira la columna <strong>Size</strong> o el campo <strong>Content-Length</strong> (KB/MB).</li>
+    <li><strong>Tiempo</strong>: mira la columna <strong>Time</strong> o el panel <strong>Timing</strong>.</li>
+    <li>Escribe esos valores en el cuadro de comentarios de cada tarjeta.</li>
+  </ul>
+  <p><em>Nota</em>: esta página intenta mostrar automáticamente ⏱️ y 📦; si no aparece el peso, usa la pestaña Network.</p>
+
+  <h3>6) Fíjate en la calidad visual</h3>
+  <ul>
+    <li><strong>Bordes y texto pequeño</strong>: ¿se ven limpios o con halos/“dientes”?</li>
+    <li><strong>Degradados</strong> (cielos, fondos): ¿hay “escalones” (banding) o se ve suave?</li>
+    <li><strong>Bloques o ruido</strong> en zonas lisas (especialmente JPEG/WebP con mucha compresión).</li>
+    <li><strong>Transparencias</strong> (si hay): ¿aparecen bordes blanquecinos u “halos” sobre el fondo?</li>
+    <li><strong>Color y detalle</strong>: ¿pierde tonos o detalles finos frente a los otros formatos?</li>
+    <li>Compara a <strong>100 %</strong> y también a <strong>200 %</strong> para detectar artefactos.</li>
+  </ul>
+
+  <h3>7) Escribe tus conclusiones</h3>
+  <p>Redacta un resumen breve en el archivo <code>README.md</code> del proyecto (crea el apartado “Conclusiones de la comparativa”).
+  Indica qué formato recomendarías para esta imagen y por qué (peso, tiempo y calidad).</p>
+
+  <h3>9) Mini-guía de optimización</h3>
+  <ol>
+    <li><strong>Responsive</strong>: usa <code>srcset</code> y <code>sizes</code> para enviar menos datos en móvil y mantener calidad en escritorio.</li>
+    <li><strong><code>loading="lazy"</code></strong>: retrasa la carga de las imágenes que están <em>fuera de la pantalla</em> hasta que el usuario se acerca.
+      Esto mejora la velocidad inicial y ahorra datos.</li>
+    <li><strong>Evitar saltos de maquetación (CLS)</strong>: especifica <code>width</code> y <code>height</code> (o <code>aspect-ratio</code>) en <code>&lt;img&gt;</code>
+      para que el navegador reserve espacio desde el principio y el contenido no “salte” al cargarse.</li>
+    <li><strong>Exportación en GIMP</strong>:
+      <ul>
+        <li>VEZ 1: <em>Imagen → Escalar imagen…</em> (define 300/600/1200 px) y guarda una copia para cada tamaño.</li>
+        <li>VEZ 2: <em>Archivo → Exportar como…</em> (elige JPEG/WebP/AVIF/PNG y ajusta calidad).</li>
+      </ul>
+    </li>
+    <li><strong>Re-mide y compara</strong>: verifica que los pesos bajan y que la calidad sigue siendo aceptable.</li>
+  </ol>
+</section>
+
+
+
+
+    <section aria-labelledby="h-ayuda">
+      <h2 id="h-ayuda">Ayuda rápida</h2>
+      <ul>
+        <li><strong>Responsive</strong>: usa <code>srcset</code> y <code>sizes</code> como en los ejemplos.</li>
+        <li><strong>Lazy loading</strong>: deja <code>loading="lazy"</code> para retrasar imágenes fuera de la vista.</li>
+        <li><strong>Exportación</strong>: prueba Squoosh/TinyPNG/ImageOptim para ajustar calidad.</li>
+      </ul>
+    </section>
+  </main>
+
+  <script>
+    // Mide tiempo y tamaño aproximado usando Performance API (si está disponible)
+    function updateMetrics(card) {
+      const url = card.getAttribute('data-url');
+      const timeSpan = card.querySelector('[data-kpi="time"]');
+      const sizeSpan = card.querySelector('[data-kpi="size"]');
+      const start = performance.now();
+      const img = card.querySelector('img');
+
+      const done = () => {
+        const duration = (performance.now() - start).toFixed(0) + ' ms';
+        timeSpan.textContent = duration;
+
+        // Intento 1: Resource Timing
+        const entries = performance.getEntriesByType('resource').filter(e => (e.name||'').includes(url.split('/').pop()));
+        if (entries && entries.length) {
+          const last = entries[entries.length - 1];
+          if (last.transferSize) {
+            sizeSpan.textContent = (last.transferSize / 1024).toFixed(1) + ' KB';
+            return;
+          }
+        }
+        // Intento 2: HEAD request (puede fallar por CORS; funciona para ficheros locales)
+        fetch(url, { method: 'HEAD' }).then(r => {
+          const len = r.headers.get('Content-Length');
+          if (len) {
+            sizeSpan.textContent = (parseInt(len, 10) / 1024).toFixed(1) + ' KB';
+          } else {
+            sizeSpan.textContent = 'n/d';
+          }
+        }).catch(() => sizeSpan.textContent = 'n/d');
+      };
+
+      if (img.complete) done(); else img.addEventListener('load', done, { once: true });
+    }
+
+    document.querySelectorAll('.card').forEach(updateMetrics);
+  </script>
+</body>
+</html>

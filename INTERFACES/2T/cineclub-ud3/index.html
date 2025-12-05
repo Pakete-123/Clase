@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>CineClub · Guía paso a paso (UD3)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Guía-tutorial para alumnado: cómo optimizar imágenes (GIMP), integrar hero y pósters, usar picture/srcset, y observar mejoras."
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .callout {
+        border-left: 4px solid #7c3aed;
+        background: #faf5ff;
+        padding: 0.75rem 1rem;
+        margin: 1rem 0;
+        border-radius: 8px;
+      }
+      .steps {
+        counter-reset: step;
+      }
+      .steps h3::before {
+        counter-increment: step;
+        content: counter(step) ". ";
+        margin-right: 0.25rem;
+        color: #7c3aed;
+      }
+      code,
+      kbd {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas,
+          "Liberation Mono", monospace;
+      }
+      kbd {
+        border: 1px solid #ddd;
+        border-bottom-width: 2px;
+        border-radius: 6px;
+        padding: 0.05rem 0.35rem;
+        background: #fff;
+      }
+      .two {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: 1fr 1fr;
+      }
+      @media (max-width: 900px) {
+        .two {
+          grid-template-columns: 1fr;
+        }
+      }
+      .example {
+        border: 1px dashed #e5e7eb;
+        border-radius: 10px;
+        padding: 0.75rem;
+        background: #fff;
+      }
+      .muted {
+        color: #6b7280;
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip" href="#contenido">Saltar al contenido</a>
+    <header role="banner">
+      <h1>
+        CineClub · Guía de trabajo en <span class="muted">index.html</span>
+      </h1>
+      <p class="meta">
+        Sigue estos pasos para preparar tu imagen <strong>hero</strong>, añadir
+        películas y observar el impacto de la optimización.
+      </p>
+      <nav aria-label="Principal">
+        <ul>
+          <li><a href="#" aria-current="page">Inicio</a></li>
+          <li>
+            <a href="comparativa-formatos.html">Comparativa de formatos</a>
+          </li>
+          <li><a href="#licencias">Licencias y atribuciones</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="contenido" tabindex="-1">
+      <section class="steps" aria-labelledby="h-paso1">
+        <h2 id="h-paso1">PASO 1 · Prepara tu imagen <em>hero</em> con GIMP</h2>
+        <div class="two">
+          <div>
+            <h3>A) Abre y escala la imagen</h3>
+            <ol>
+              <li>
+                Abre tu imagen en <strong>GIMP</strong> → <kbd>Archivo</kbd> →
+                <kbd>Abrir…</kbd>.
+              </li>
+              <li>
+                Escálala a <strong>1600×900 px</strong>: <kbd>Imagen</kbd> →
+                <kbd>Escalar imagen…</kbd> → introduce ancho/alto.
+              </li>
+              <li>
+                Guarda una copia de trabajo: <kbd>Archivo</kbd> →
+                <kbd>Guardar como…</kbd> (formato XCF).
+              </li>
+            </ol>
+            <h3>B) Exporta en 3 formatos</h3>
+            <ol>
+              <li>
+                <strong>AVIF</strong>: <kbd>Archivo</kbd> →
+                <kbd>Exportar como…</kbd> → elige <code>.avif</code> → calidad
+                <strong>45–55</strong>.
+              </li>
+              <li>
+                <strong>WebP</strong>: exporta <code>.webp</code> → calidad
+                <strong>70–80</strong>.
+              </li>
+              <li>
+                <strong>JPEG</strong>: exporta <code>.jpg</code> → calidad
+                <strong>70–80</strong>.
+              </li>
+            </ol>
+            <p class="callout">
+              ¿Por qué AVIF/WebP/JPEG? <strong>AVIF</strong> y
+              <strong>WebP</strong> pesan menos a igual calidad.
+              <strong>JPEG</strong> es el respaldo universal.
+            </p>
+          </div>
+          <div class="example">
+            <p>
+              <strong>Coloca tus archivos</strong> en <code>media/hero/</code>:
+            </p>
+            <pre><code>media/hero/tu-hero.avif
+media/hero/tu-hero.webp
+media/hero/tu-hero.jpg</code></pre>
+            <p class="muted">Usa nombres en minúsculas y sin espacios.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="steps" aria-labelledby="h-paso2">
+        <h2 id="h-paso2">
+          PASO 2 · Inserta el <em>hero</em> optimizado en la página
+        </h2>
+        <div class="two">
+          <div class="example">
+            <pre><code>&lt;picture&gt;
+  &lt;source type="image/avif" srcset="media/hero/tu-hero.avif"&gt;
+  &lt;source type="image/webp" srcset="media/hero/tu-hero.webp"&gt;
+  &lt;img src="media/hero/tu-hero.jpg"
+       width="1600" height="900"
+       alt="Descripción clara de la imagen hero"
+       loading="lazy" decoding="async"&gt;
+&lt;/picture&gt;</code></pre>
+          </div>
+          <div>
+            <p><strong>Qué hace cada cosa</strong>:</p>
+            <ul>
+              <li>
+                <code>&lt;source type="image/avif"&gt;</code> y
+                <code>image/webp</code>: ofrecen una versión
+                <em>más ligera</em> si el navegador la soporta.
+              </li>
+              <li>
+                <code>img src="...jpg"</code>: <em>fallback</em> garantizado
+                para todos los navegadores.
+              </li>
+              <li>
+                <code>width</code>/<code>height</code>: reservan espacio y
+                evitan <strong>saltos de maquetación (CLS)</strong>.
+              </li>
+              <li>
+                <code>loading="lazy"</code>: retrasa la carga hasta que el
+                usuario se acerca →
+                <strong>mejora la velocidad inicial</strong>.
+              </li>
+              <li>
+                <code>alt</code>: describe la imagen para accesibilidad/SEO.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="steps" aria-labelledby="h-paso3">
+        <h2 id="h-paso3">PASO 3 · Añade 2–4 tarjetas de películas</h2>
+        <p>
+          Duplica el bloque de una tarjeta y edita título, género, año, director
+          y póster.
+        </p>
+        <div class="two">
+          <div class="example">
+            <pre><code>&lt;article class="card" itemscope itemtype="https://schema.org/Movie"&gt;
+  &lt;header&gt;
+    &lt;h3 itemprop="name"&gt;&lt;a href="pelicula-mi-estreno.html"&gt;Mi estreno&lt;/a&gt;&lt;/h3&gt;
+    &lt;p class="meta"&gt;&lt;span class="badge" itemprop="genre"&gt;Acción&lt;/span&gt; ·
+      &lt;time datetime="2025" itemprop="datePublished"&gt;2025&lt;/time&gt; · Dir: &lt;span itemprop="director"&gt;N. Romero&lt;/span&gt;
+    &lt;/p&gt;
+  &lt;/header&gt;
+
+  &lt;figure&gt;
+    &lt;picture&gt;
+      &lt;source type="image/avif" srcset="media/posters/mi-estreno.avif"&gt;
+      &lt;source type="image/webp" srcset="media/posters/mi-estreno.webp"&gt;
+      &lt;img src="media/posters/mi-estreno.jpg"
+           width="800" height="1200"
+           alt="Póster de Mi estreno: …"
+           loading="lazy" decoding="async" itemprop="image"&gt;
+    &lt;/picture&gt;
+    &lt;figcaption&gt;Póster optimizado con fallbacks.&lt;/figcaption&gt;
+  &lt;/figure&gt;
+
+  &lt;div class="content" itemprop="description"&gt;
+    Breve sinopsis en 1–2 frases.
+  &lt;/div&gt;
+&lt;/article&gt;</code></pre>
+          </div>
+          <div>
+            <p>
+              <strong>Si necesitas transparencias</strong>: usa
+              <code>PNG</code> como red de seguridad (o WebP/AVIF en modo
+              <em>lossless</em>).
+            </p>
+            <p class="callout">
+              <strong>Licencias</strong>: si el póster no es tuyo, añade la
+              atribución <em>TASL</em> (ver final de la página).
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="steps" aria-labelledby="h-paso4">
+        <h2 id="h-paso4">
+          PASO 4 · Imágenes responsivas (cuando el póster sea “grande”)
+        </h2>
+        <div class="two">
+          <div class="example">
+            <pre><code>&lt;img
+  src="media/posters/mi-estreno-600.webp"
+  srcset="media/posters/mi-estreno-300.webp 300w,
+          media/posters/mi-estreno-600.webp 600w,
+          media/posters/mi-estreno-1200.webp 1200w"
+  sizes="(max-width: 600px) 300px, (max-width: 1200px) 600px, 1200px"
+  width="800" height="1200" alt="Póster de Mi estreno" loading="lazy"&gt;</code></pre>
+          </div>
+          <div>
+            <p>
+              <strong>Por qué 300/600/1200 px</strong>: el navegador elige la
+              variante adecuada según el tamaño de pantalla y
+              <code>sizes</code>, ahorrando datos en móvil y manteniendo calidad
+              en escritorio/retina.
+            </p>
+            <ul>
+              <li><code>src</code>: imagen por defecto.</li>
+              <li>
+                <code>srcset</code>: lista de variantes con su ancho
+                (<code>300w</code>, <code>600w</code>, <code>1200w</code>).
+              </li>
+              <li><code>sizes</code>: “qué ancho ocupa” en cada breakpoint.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="steps" aria-labelledby="h-paso5">
+        <h2 id="h-paso5">PASO 5 · Observa y mide las mejoras</h2>
+        <div class="two">
+          <div>
+            <ol>
+              <li>
+                Abre <strong>DevTools</strong> (F12) → pestaña
+                <strong>Network</strong> (Red).
+              </li>
+              <li>Recarga la página con tus cambios.</li>
+              <li>
+                Busca los recursos del hero y de los pósters. Mira columnas
+                <strong>Size</strong> y <strong>Time</strong>.
+              </li>
+              <li>
+                Compara con tu versión no optimizada (si la tienes) o con
+                diferentes calidades.
+              </li>
+            </ol>
+          </div>
+          <div class="callout">
+            <p><strong>Qué deberías ver</strong>:</p>
+            <ul>
+              <li>
+                El <em>hero</em> en AVIF/WebP pesa <em>menos</em> que el JPEG.
+              </li>
+              <li>
+                Con <code>loading="lazy"</code>, las imágenes fuera de pantalla
+                <em>no se descargan</em> al inicio.
+              </li>
+              <li>
+                Con <code>width</code>/<code>height</code>, el contenido no
+                “salta” al cargarse (sin CLS).
+              </li>
+              <li>
+                Con <code>srcset/sizes</code>, en móvil se descargan variantes
+                más pequeñas.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="steps" aria-labelledby="h-paso6">
+        <h2 id="h-paso6">PASO 6 · Licencias y atribuciones (TASL)</h2>
+        <p>
+          Completa la atribución de cada imagen que no sea tuya (Título, Autor,
+          Source, Licencia).
+        </p>
+        <div class="example">
+          <pre><code>&lt;p class="meta"&gt;
+  “Póster Mi estreno” – Laura Díaz, https://… , CC BY 4.0.
+&lt;/p&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="steps" aria-labelledby="h-antes-despues">
+        <h2 id="h-antes-despues">
+          EXTRA · Comparativa visual: Antes / Después
+        </h2>
+        <p>
+          Usa este bloque para comparar un póster sin optimizar frente al
+          optimizado. El objetivo es <strong>ver</strong> y
+          <strong>medir</strong> la mejora.
+        </p>
+        <div class="two">
+          <figure class="example">
+            <figcaption><strong>Antes</strong> (sin optimizar)</figcaption>
+            <img
+              src="media/posters/mi-estreno-original.jpg"
+              width="800"
+              height="1200"
+              alt="Póster original sin optimizar"
+              loading="lazy"
+              decoding="async"
+            />
+            <p class="muted">
+              Ejemplo: JPEG a calidad 100, sin redimensionar ni comprimir.
+            </p>
+          </figure>
+
+          <figure class="example">
+            <figcaption><strong>Después</strong> (optimizado)</figcaption>
+            <picture>
+              <source
+                type="image/avif"
+                srcset="media/posters/mi-estreno-optimizado.avif"
+              />
+              <source
+                type="image/webp"
+                srcset="media/posters/mi-estreno-optimizado.webp"
+              />
+              <img
+                src="media/posters/mi-estreno-optimizado.jpg"
+                width="800"
+                height="1200"
+                alt="Póster optimizado"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+            <p class="muted">
+              Ejemplo: exportado en GIMP (800×1200 px), AVIF/WebP/JPEG con
+              calidad 70–80.
+            </p>
+          </figure>
+        </div>
+
+        <div class="callout">
+          <p><strong>Qué hacer</strong>:</p>
+          <ol>
+            <li>
+              Exporta el <em>Antes</em> (tu archivo grande sin optimizar) y el
+              <em>Después</em> (redimensionado y comprimido con GIMP). Coloca
+              los ficheros en <code>media/posters/</code> y ajusta las rutas si
+              usas otros nombres.
+            </li>
+            <li>
+              Abre <strong>DevTools → Network</strong>, recarga y anota
+              <strong>Size</strong> y <strong>Time</strong> para ambos.
+            </li>
+            <li>
+              Mira la calidad a 100% y 200% (bordes, degradados, halos, ruido).
+              ¿El <em>Después</em> mantiene la calidad aceptable?
+            </li>
+            <li>
+              Escribe un breve comentario en el <code>README.md</code> dentro de
+              “Conclusiones de la comparativa”.
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-cat">
+        <h2 id="h-cat">Catálogo (tu trabajo irá aquí)</h2>
+        <div class="grid">
+          <!-- Deja al menos 2 tarjetas nuevas siguiendo el PASO 3 -->
+          <picture>
+            <source type="image/avif" srcset="media/hero/breaking-bad.avif" />
+            <source type="image/webp" srcset="media/hero/breaking-bad.webp" />
+            <img
+              src="media/hero/breaking-bad.jpg"
+              width="1600"
+              height="900"
+              alt="Walter White de Breaking Bad"
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
+
+          <article class="card" itemscope itemtype="https://schema.org/Movie">
+            <header>
+              <h3 itemprop="name">
+                <a href="pelicula-mi-estreno.html">Modern Family</a>
+              </h3>
+              <p class="meta">
+                <span class="badge" itemprop="genre">Comedia</span> ·
+                <time datetime="2025" itemprop="datePublished">2009</time> ·
+                Dir: <span itemprop="director">Christopher Lloyd</span>
+              </p>
+            </header>
+
+            <figure>
+              <picture>
+                <source
+                  type="image/avif"
+                  srcset="media/posters/modern-family.avif"
+                />
+                <source
+                  type="image/webp"
+                  srcset="media/posters/modern-family.webp"
+                />
+                <img
+                  src="media/posters/modern-family-600.webp"
+                  srcset="
+                    media/posters/modern-family-300.webp   300w,
+                    media/posters/modern-family-600.webp   600w,
+                    media/posters/modern-family-1200.webp 1200w
+                  "
+                  sizes="(max-width: 600px) 300px, (max-width: 1200px) 600px, 1200px"
+                  width="800"
+                  height="1200"
+                  alt="Póster de Mi estreno"
+                  loading="lazy"
+                />
+              </picture>
+              <figcaption>Póster optimizado con fallbacks.</figcaption>
+            </figure>
+
+            <div class="content" itemprop="description">
+              La serie sigue la vida de Jay Pritchett y su familia, todos los
+              cuales viven en Los Ángeles. La familia de Jay Pritchett incluye a
+              su segunda esposa y su hijastro, así como a sus dos hijos adultos;
+              sus esposos e hijos y nietos.
+            </div>
+          </article>
+
+          <article class="card" itemscope itemtype="https://schema.org/Movie">
+            <header>
+              <h3 itemprop="name">
+                <a href="pelicula-mi-estreno.html">Mi estreno</a>
+              </h3>
+              <p class="meta">
+                <span class="badge" itemprop="genre">Suspense</span> ·
+                <time datetime="2025" itemprop="datePublished">2005</time> ·
+                Dir: <span itemprop="director">Paul Scheuring</span>
+              </p>
+            </header>
+
+            <figure>
+              <picture>
+                <source
+                  type="image/avif"
+                  srcset="media/posters/prison-break.avif"
+                />
+                <source
+                  type="image/webp"
+                  srcset="media/posters/prison-break.webp"
+                />
+                <img
+                  src="media/posters/mi-estreno-600.webp"
+                  srcset="
+                    media/posters/mi-estreno-300.webp   300w,
+                    media/posters/mi-estreno-600.webp   600w,
+                    media/posters/mi-estreno-1200.webp 1200w
+                  "
+                  sizes="(max-width: 600px) 300px, (max-width: 1200px) 600px, 1200px"
+                  width="800"
+                  height="1200"
+                  alt="Póster de Mi estreno"
+                  loading="lazy"
+                />
+              </picture>
+              <figcaption>Póster optimizado con fallbacks.</figcaption>
+            </figure>
+
+            <div class="content" itemprop="description">
+              Prison Break trata sobre Michael Scofield, un ingeniero que se
+              hace tatuar los planos de una prisión en su cuerpo para planear el
+              rescate de su hermano, Lincoln Burrows, quien ha sido condenado
+              injustamente a muerte por un crimen que no cometió. La serie sigue
+              el elaborado plan de fuga de los hermanos mientras están dentro de
+              la prisión estatal Fox River y también aborda las conspiraciones
+              políticas y los obstáculos que enfrentan.
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="licencias" aria-labelledby="h-lic">
+        <h2 id="h-lic">Licencias y atribuciones</h2>
+        <p>Salvo indicación en cada ficha:</p>
+        <ul>
+          <li>
+            Texto del sitio: © 2025 – Nombre del Centro. Licencia: CC BY-SA 4.0.
+          </li>
+          <li>
+            Imágenes/sonidos/vídeos de terceros: ver TASL en cada tarjeta; uso
+            docente o licencia específica.
+          </li>
+        </ul>
+        <details>
+          <summary>Modelo TASL</summary>
+          <p>
+            <strong>T</strong>ítulo – <strong>A</strong>utor/a –
+            <strong>S</strong>ource/URL – <strong>L</strong>icencia/URL.
+          </p>
+        </details>
+      </section>
+    </main>
+
+    <footer role="contentinfo">
+      <p>
+        © 2025 CineClub · Starter UD3 (DIW).
+        <a href="comparativa-formatos.html">Ir a la comparativa de formatos</a>
+      </p>
+    </footer>
+  </body>
+</html>
