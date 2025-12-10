@@ -149,23 +149,32 @@ console.log(matriz);
 // 5. Recorre y muestra en consola todos los elementos de la matriz
 console.log("5. Recorre y muestra en consola todos los elementos de la matriz");
 for (let i = 0; i < matriz.length; i++) {
-  console.log(`Fila ${i}`);
+  console.log(`Fila ${i + 1}`);
   for (let j = 0; j < matriz[i].length; j++) {
-    console.log(`Columna ${j}`);
+    console.log(`Columna ${j + 1}`);
     console.log(matriz[i][j]);
   }
 }
 
 // Ejercicio propuesto: 
 // 1. Crea una matriz de 30x30
+console.log("1. Crea una matriz de 30x30");
 const matriz2 = [];
 // 2. Inicializa automáticamente los elementos de la matriz
+console.log("2. Inicializa automáticamente los elementos de la matriz")
 for (let i = 0; i < 30; i++) {
   matriz2[i] = [];
   for (let j = 0; j < 30; j++) {
     matriz2[i][j] = i + j;
   }
 }
-console.log(matriz2);
 // 3. Muestra todos los elementos de la matriz 
+console.log("3. Muestra todos los elementos de la matriz");
+for (let i = 0; i < matriz2.length; i++) {
+  console.log(`Fila ${i + 1}`);
+  for (let j = 0; j < matriz2[i].length; j++) {
+    console.log(`Columna ${j + 1}`);
+    console.log(matriz2[i][j]);
+  }
+}
 // 4. Modifica las dimensiones para que quede en 3x3
