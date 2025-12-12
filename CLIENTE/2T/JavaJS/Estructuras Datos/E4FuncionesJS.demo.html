@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demo — FuncionesJS.js — Demo</title>
+  <style>
+    :root { font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans'; }
+    body { margin: 2rem; line-height: 1.4; }
+    .card { border: 1px solid #ddd; border-radius: 12px; padding: 1rem 1.25rem; box-shadow: 0 2px 6px rgba(0,0,0,.05); }
+    .actions { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: .75rem; }
+    button { border: 1px solid #ccc; border-radius: 10px; padding: .5rem .8rem; background: #f7f7f7; cursor: pointer; }
+    button:hover { background: #eee; }
+    code, pre { font-family: ui-monospace, Menlo, Consolas, 'Liberation Mono', monospace; }
+    pre { background: #0b1020; color: #e6edf3; padding: .75rem; border-radius: 10px; overflow: auto; max-height: 45vh; }
+    .small { color: #555; font-size: .94rem; }
+    .path { font-family: ui-monospace, Menlo, Consolas, monospace; background: #fafafa; border: 1px dashed #ddd; padding: .2rem .4rem; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <h1>Demo — FuncionesJS.js</h1>
+  <p class="small">Funciones puras y de orden superior; ejecución de ejemplo con salida por consola.</p>
+  <div class="card">
+    <h2>Cómo funciona</h2>
+    <ol>
+      <li>Este HTML captura <code>console.log</code> y lo muestra en el panel de salida.</li>
+      <li>Al pulsar <strong>Ejecutar</strong>, inyecta <span class="path">FuncionesJS.js</span> con un parámetro temporal para forzar recarga y repetir la ejecución.</li>
+      <li>También puedes inspeccionar la salida en la <strong>consola del navegador</strong>.</li>
+    </ol>
+    <h2>Cómo probar</h2>
+    <ol>
+      <li>Coloca este HTML en la misma carpeta que <span class="path">FuncionesJS.js</span>.</li>
+      <li>Abre el HTML en el navegador (doble clic).</li>
+      <li>Haz clic en <strong>Ejecutar</strong> y observa la salida.</li>
+    </ol>
+    <div class="actions">
+      <button id="btnRun">▶ Ejecutar</button>
+      <button id="btnClear">🧹 Limpiar salida</button>
+    </div>
+    <div class="small">Ruta esperada: <span class="path">./FuncionesJS.js</span></div>
+  </div>
+
+  <h2>Salida</h2>
+  <pre id="out">[listo] pulsa «Ejecutar» para cargar FuncionesJS.js…</pre>
+
+  <script>
+    (function() {
+      const out = document.getElementById('out');
+      const origLog = console.log;
+      console.log = (...args) => { origLog(...args); out.textContent += args.join(' ') + '\n'; };
+
+      document.getElementById('btnRun').addEventListener('click', () => {
+        const s = document.createElement('script');
+        s.src = './FuncionesJS.js?cb=' + Date.now();
+        s.onload = () => console.log('[ok] Script cargado:', s.src);
+        s.onerror = () => console.log('[error] No se pudo cargar el script (¿misma carpeta?)');
+        document.body.appendChild(s);
+      });
+
+      document.getElementById('btnClear').addEventListener('click', () => out.textContent = '');
+    })();
+  </script>
+</body>
+</html>
