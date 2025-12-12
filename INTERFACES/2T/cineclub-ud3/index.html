@@ -393,20 +393,20 @@ media/hero/tu-hero.jpg</code></pre>
 
       <section aria-labelledby="h-cat">
         <h2 id="h-cat">Catálogo (tu trabajo irá aquí)</h2>
+        <picture>
+          <source type="image/avif" srcset="media/hero/breaking-bad.avif" />
+          <source type="image/webp" srcset="media/hero/breaking-bad.webp" />
+          <img
+            src="media/hero/breaking-bad.jpg"
+            width="1600"
+            height="900"
+            alt="Walter White de Breaking Bad"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
         <div class="grid">
           <!-- Deja al menos 2 tarjetas nuevas siguiendo el PASO 3 -->
-          <picture>
-            <source type="image/avif" srcset="media/hero/breaking-bad.avif" />
-            <source type="image/webp" srcset="media/hero/breaking-bad.webp" />
-            <img
-              src="media/hero/breaking-bad.jpg"
-              width="1600"
-              height="900"
-              alt="Walter White de Breaking Bad"
-              loading="lazy"
-              decoding="async"
-            />
-          </picture>
 
           <article class="card" itemscope itemtype="https://schema.org/Movie">
             <header>
@@ -422,25 +422,19 @@ media/hero/tu-hero.jpg</code></pre>
 
             <figure>
               <picture>
-                <source
-                  type="image/avif"
-                  srcset="media/posters/modern-family.avif"
-                />
-                <source
-                  type="image/webp"
-                  srcset="media/posters/modern-family.webp"
-                />
+                <source type="image/png" />
+                <source type="image/webp" />
                 <img
-                  src="media/posters/modern-family-600.webp"
+                  src="media/posters/modernfamily.jpg"
                   srcset="
-                    media/posters/modern-family-300.webp   300w,
-                    media/posters/modern-family-600.webp   600w,
-                    media/posters/modern-family-1200.webp 1200w
+                    media/posters/modernfamily-300.png   300w,
+                    media/posters/modernfamily-600.png   600w,
+                    media/posters/modernfamily-1200.png 1200w
                   "
-                  sizes="(max-width: 600px) 300px, (max-width: 1200px) 600px, 1200px"
+                  sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   width="800"
                   height="1200"
-                  alt="Póster de Mi estreno"
+                  alt="Póster de Modern Family"
                   loading="lazy"
                 />
               </picture>
@@ -458,7 +452,7 @@ media/hero/tu-hero.jpg</code></pre>
           <article class="card" itemscope itemtype="https://schema.org/Movie">
             <header>
               <h3 itemprop="name">
-                <a href="pelicula-mi-estreno.html">Mi estreno</a>
+                <a href="pelicula-mi-estreno.html">Prison Break</a>
               </h3>
               <p class="meta">
                 <span class="badge" itemprop="genre">Suspense</span> ·
@@ -469,22 +463,16 @@ media/hero/tu-hero.jpg</code></pre>
 
             <figure>
               <picture>
-                <source
-                  type="image/avif"
-                  srcset="media/posters/prison-break.avif"
-                />
-                <source
-                  type="image/webp"
-                  srcset="media/posters/prison-break.webp"
-                />
+                <source type="image/png" />
+                <source type="image/webp" />
                 <img
-                  src="media/posters/mi-estreno-600.webp"
+                  src="media/posters/prisonbreak.png"
                   srcset="
-                    media/posters/mi-estreno-300.webp   300w,
-                    media/posters/mi-estreno-600.webp   600w,
-                    media/posters/mi-estreno-1200.webp 1200w
+                    media/posters/prisonbreak-300.png   300w,
+                    media/posters/prisonbreak-600.png   600w,
+                    media/posters/prisonbreak-1200.png 1200w
                   "
-                  sizes="(max-width: 600px) 300px, (max-width: 1200px) 600px, 1200px"
+                  sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   width="800"
                   height="1200"
                   alt="Póster de Mi estreno"
