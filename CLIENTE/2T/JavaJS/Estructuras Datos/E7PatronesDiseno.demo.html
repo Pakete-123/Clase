@@ -1,0 +1,64 @@
+<!doctype html> <!-- Declara documento HTML5 -->
+<html lang="es"> <!-- Idioma principal español -->
+<head> <!-- Cabecera -->
+  <meta charset="utf-8"> <!-- Codificación UTF-8 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Responsive -->
+  <title>Demo — E7PatronesDiseno.js — Demo</title> <!-- Título de pestaña -->
+  <style> /* Estilos básicos inline */
+    :root { font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans'; } /* Tipografía */
+    body { margin: 2rem; line-height: 1.4; } /* Margen y altura de línea */
+    .card { border: 1px solid #ddd; border-radius: 12px; padding: 1rem 1.25rem; box-shadow: 0 2px 6px rgba(0,0,0,.05); } /* Caja informativa */
+    .actions { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: .75rem; } /* Contenedor de botones */
+    button { border: 1px solid #ccc; border-radius: 10px; padding: .5rem .8rem; background: #f7f7f7; cursor: pointer; } /* Botones */
+    button:hover { background: #eee; } /* Hover de botones */
+    code, pre { font-family: ui-monospace, Menlo, Consolas, 'Liberation Mono', monospace; } /* Fuente monoespaciada */
+    pre { background: #0b1020; color: #e6edf3; padding: .75rem; border-radius: 10px; overflow: auto; max-height: 45vh; } /* Panel de salida */
+    .small { color: #555; font-size: .94rem; } /* Texto secundario */
+    .path { font-family: ui-monospace, Menlo, Consolas, monospace; background: #fafafa; border: 1px dashed #ddd; padding: .2rem .4rem; border-radius: 6px; } /* Estilo de ruta */
+  </style> <!-- Fin de estilos -->
+</head> <!-- Fin de cabecera -->
+<body> <!-- Cuerpo -->
+  <h1>Demo — E7PatronesDiseno.js</h1> <!-- Título visible -->
+  <p class="small">Ejemplos comentados de patrones: Módulo, Factory, Strategy, Observer, Decorator (memo/log), Builder, Adapter y Proxy.</p> <!-- Descripción breve -->
+  <div class="card"> <!-- Tarjeta informativa -->
+    <h2>Cómo funciona</h2> <!-- Subtítulo -->
+    <ol> <!-- Lista de pasos -->
+      <li>Captura <code>console.log</code> y lo muestra en el panel inferior.</li> <!-- Paso 1 -->
+      <li>Al pulsar <strong>Ejecutar</strong>, inyecta <span class="path">E7PatronesDiseno.js</span> con un parámetro temporal.</li> <!-- Paso 2 -->
+      <li>También puedes ver la salida en la consola del navegador.</li> <!-- Paso 3 -->
+    </ol> <!-- Fin de lista -->
+    <h2>Cómo probar</h2> <!-- Subtítulo de prueba -->
+    <ol> <!-- Lista de instrucciones -->
+      <li>Guarda este HTML en la misma carpeta que <span class="path">E7PatronesDiseno.js</span>.</li> <!-- Instrucción 1 -->
+      <li>Abre el HTML en el navegador (doble clic).</li> <!-- Instrucción 2 -->
+      <li>Haz clic en <strong>Ejecutar</strong> y revisa la salida de los logs.</li> <!-- Instrucción 3 -->
+    </ol> <!-- Fin de instrucciones -->
+    <div class="actions"> <!-- Contenedor de botones -->
+      <button id="btnRun">▶ Ejecutar</button> <!-- Botón para cargar el JS -->
+      <button id="btnClear">🧹 Limpiar salida</button> <!-- Botón para limpiar el panel -->
+    </div> <!-- Fin de acciones -->
+    <div class="small">Ruta esperada: <span class="path">./E7PatronesDiseno.js</span></div> <!-- Nota de ruta -->
+  </div> <!-- Fin de tarjeta -->
+
+  <h2>Salida</h2> <!-- Título de sección de salida -->
+  <pre id="out">[listo] pulsa «Ejecutar» para cargar E7PatronesDiseno.js…</pre> <!-- Panel donde aparecen los logs -->
+
+  <script> // Script embebido
+    (function() { // IIFE para aislar variables
+      const out = document.getElementById('out'); // Obtiene referencia al panel de salida
+      const origLog = console.log; // Guarda la función log original
+      console.log = (...args) => { origLog(...args); out.textContent += args.join(' ') + '\n'; }; // Sobrescribe log para pintar en pantalla
+
+      document.getElementById('btnRun').addEventListener('click', () => { // Click en Ejecutar
+        const s = document.createElement('script'); // Crea elemento script
+        s.src = './E7PatronesDiseno.js?cb=' + Date.now(); // Define la ruta con query para evitar caché
+        s.onload = () => console.log('[ok] Script cargado:', s.src); // Log al cargar con éxito
+        s.onerror = () => console.log('[error] No se pudo cargar el script (¿misma carpeta?)'); // Log al fallar
+        document.body.appendChild(s); // Inyecta el script en el documento
+      }); // Fin del listener de Ejecutar
+
+      document.getElementById('btnClear').addEventListener('click', () => out.textContent = ''); // Limpia la salida al pulsar
+    })(); // Ejecuta la IIFE
+  </script> <!-- Fin del script embebido -->
+</body> <!-- Fin del cuerpo -->
+</html> <!-- Cierre del documento -->

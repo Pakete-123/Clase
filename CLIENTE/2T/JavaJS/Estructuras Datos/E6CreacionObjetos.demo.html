@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<!-- Declara el tipo de documento HTML5 -->
+<html lang="es">
+  <!-- Inicio del documento con idioma español -->
+  <head>
+    <!-- Cabecera del documento -->
+    <meta charset="utf-8" />
+    <!-- Configura codificación UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Ajuste responsive -->
+    <title>Demo — CreacionObjetosJS.js — Demo</title>
+    <!-- Título de la pestaña -->
+    <style>
+      /* Inicio de estilos embebidos */
+      :root {
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu,
+          Cantarell, "Helvetica Neue", Arial, "Noto Sans";
+      } /* Tipografía base */
+      body {
+        margin: 2rem;
+        line-height: 1.4;
+      } /* Espaciado y altura de línea */
+      .card {
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        padding: 1rem 1.25rem;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      } /* Tarjeta contenedora */
+      .actions {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        margin-bottom: 0.75rem;
+      } /* Contenedor de botones */
+      button {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 0.5rem 0.8rem;
+        background: #f7f7f7;
+        cursor: pointer;
+      } /* Estilo básico de botones */
+      button:hover {
+        background: #eee;
+      } /* Hover para botones */
+      code,
+      pre {
+        font-family: ui-monospace, Menlo, Consolas, "Liberation Mono", monospace;
+      } /* Fuente monoespaciada */
+      pre {
+        background: #0b1020;
+        color: #e6edf3;
+        padding: 0.75rem;
+        border-radius: 10px;
+        overflow: auto;
+        max-height: 45vh;
+      } /* Panel de salida */
+      .small {
+        color: #555;
+        font-size: 0.94rem;
+      } /* Texto secundario */
+      .path {
+        font-family: ui-monospace, Menlo, Consolas, monospace;
+        background: #fafafa;
+        border: 1px dashed #ddd;
+        padding: 0.2rem 0.4rem;
+        border-radius: 6px;
+      } /* Estilo para rutas */
+    </style>
+    <!-- Fin de estilos -->
+  </head>
+  <!-- Fin de la cabecera -->
+  <body>
+    <!-- Inicio del cuerpo -->
+    <h1>Demo — CreacionObjetosJS.js</h1>
+    <!-- Encabezado principal -->
+    <p class="small">
+      Pruebas de creación de objetos: literales, funciones constructoras,
+      clases, Map, getters/setters y campos privados.
+    </p>
+    <!-- Descripción breve -->
+    <div class="card">
+      <!-- Tarjeta informativa -->
+      <h2>Cómo funciona</h2>
+      <!-- Subtítulo de funcionamiento -->
+      <ol>
+        <!-- Lista ordenada de pasos -->
+        <li>
+          Este HTML captura <code>console.log</code> y lo muestra en el panel de
+          salida.
+        </li>
+        <!-- Paso 1 -->
+        <li>
+          Al pulsar <strong>Ejecutar</strong>, inyecta
+          <span class="path">CreacionObjetosJS.js</span> con un parámetro
+          temporal para recargar siempre.
+        </li>
+        <!-- Paso 2 -->
+        <li>
+          También puedes inspeccionar la salida en la
+          <strong>consola del navegador</strong>.
+        </li>
+        <!-- Paso 3 -->
+      </ol>
+      <!-- Fin de lista de funcionamiento -->
+      <h2>Cómo probar</h2>
+      <!-- Subtítulo de pruebas -->
+      <ol>
+        <!-- Lista ordenada de instrucciones -->
+        <li>
+          Coloca este HTML en la misma carpeta que
+          <span class="path">CreacionObjetosJS.js</span>.
+        </li>
+        <!-- Instrucción 1 -->
+        <li>Abre el HTML en el navegador (doble clic).</li>
+        <!-- Instrucción 2 -->
+        <li>
+          Haz clic en <strong>Ejecutar</strong> y observa la salida de logs.
+        </li>
+        <!-- Instrucción 3 -->
+      </ol>
+      <!-- Fin de instrucciones -->
+      <div class="actions">
+        <!-- Contenedor de botones -->
+        <button id="btnRun">▶ Ejecutar</button>
+        <!-- Botón para cargar el script -->
+        <button id="btnClear">🧹 Limpiar salida</button>
+        <!-- Botón para limpiar la consola visual -->
+      </div>
+      <!-- Fin de contenedor de botones -->
+      <div class="small">
+        Ruta esperada: <span class="path">./CreacionObjetosJS.js</span>
+      </div>
+      <!-- Nota de ruta del script -->
+    </div>
+    <!-- Fin de la tarjeta -->
+
+    <h2>Salida</h2>
+    <!-- Título de la sección de salida -->
+    <pre id="out">
+[listo] pulsa «Ejecutar» para cargar CreacionObjetosJS.js…</pre
+    >
+    <!-- Área donde se muestran los logs -->
+
+    <script>
+      // Inicio del script que captura logs y carga el JS externo
+      (function () {
+        // IIFE para no contaminar el global
+        const out = document.getElementById("out"); // Referencia al elemento de salida
+        const origLog = console.log; // Guarda la función original console.log
+        console.log = (...args) => {
+          origLog(...args);
+          out.textContent += args.join(" ") + "\n";
+        }; // Sobrescribe log para imprimir en pantalla y consola
+
+        document.getElementById("btnRun").addEventListener("click", () => {
+          // Evento click en Ejecutar
+          const s = document.createElement("script"); // Crea elemento script
+          s.src = "./CreacionObjetosJS.js?cb=" + Date.now(); // Ruta del JS con query para evitar caché
+          s.onload = () => console.log("[ok] Script cargado:", s.src); // Log al cargar correctamente
+          s.onerror = () =>
+            console.log(
+              "[error] No se pudo cargar el script (¿misma carpeta?)"
+            ); // Log de error si falla carga
+          document.body.appendChild(s); // Inyecta el script en el documento
+        }); // Fin del manejador de Ejecutar
+
+        document
+          .getElementById("btnClear")
+          .addEventListener("click", () => (out.textContent = "")); // Limpia la salida al pulsar limpiar
+      })(); // Ejecuta la IIFE inmediatamente
+    </script>
+    <!-- Fin del script embebido -->
+  </body>
+  <!-- Fin del cuerpo -->
+</html>
+<!-- Cierre del documento -->
