@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UD4 | Interactividad + Responsive</title>
+
+    <!-- IMPORTANTE:
+       Este script está "mal" colocado a propósito para el RETO 1.
+       De momento NO lo cambies. Primero observa el error y entiéndelo. -->
+    <script src="main.js" defer></script>
+
+    <!-- En el RETO 2 trabajarás 3 variantes:
+       1) <script src="main.js"></script>
+       2) <script src="main.js" async></script>
+       3) <script src="main.js" defer></script>
+  -->
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="brand">
+        <span class="logo" aria-hidden="true">🌿</span>
+        <h1 class="title">Delicias Responsivas</h1>
+      </div>
+
+      <nav class="nav" aria-label="Navegación principal">
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#menu">Menú</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="main" id="inicio">
+      <section class="hero">
+        <h2>Bienvenido/a</h2>
+        <p>
+          Esta página sirve para practicar interactividad con JavaScript, carga
+          de scripts (async/defer) y diseño responsive con media queries.
+        </p>
+
+        <div class="actions">
+          <button id="btnMore" class="btn" type="button">Ver más</button>
+          <span id="clickInfo" class="click-info" aria-live="polite"></span>
+        </div>
+      </section>
+
+      <!-- Sección que debe mostrarse/ocultarse con JS -->
+      <section id="moreInfo" class="more hidden">
+        <h3>Información adicional</h3>
+        <p>
+          Aquí aparecerá contenido extra. El objetivo es mostrar/ocultar este
+          bloque con JavaScript, cambiando también el texto del botón.
+        </p>
+
+        <details class="faq">
+          <summary>¿Para qué sirve <code>defer</code>?</summary>
+          <p>
+            Para ejecutar un script después de que el DOM esté listo (ideal si
+            el script manipula elementos).
+          </p>
+        </details>
+
+        <details class="faq">
+          <summary>¿Para qué sirven las media queries?</summary>
+          <p>
+            Para adaptar el diseño a móviles/tablets/escritorio mejorando la
+            experiencia de usuario.
+          </p>
+        </details>
+      </section>
+
+      <section
+        class="gallery"
+        id="menu"
+        aria-label="Galería de platos (opcional)"
+      >
+        <h3>Galería (opcional)</h3>
+        <div class="grid">
+          <article class="card">Plato 1</article>
+          <article class="card">Plato 2</article>
+          <article class="card">Plato 3</article>
+          <article class="card">Plato 4</article>
+        </div>
+        <p class="note">
+          Si te da tiempo, convierte la galería en 2 columnas en tablet y 1
+          columna en móvil con media queries.
+        </p>
+      </section>
+    </main>
+
+    <footer class="footer" id="contacto">
+      <p>Contacto: info@delicias-responsivas.test</p>
+      <p class="small">UD4 – Integración de contenido interactivo</p>
+    </footer>
+  </body>
+</html>
