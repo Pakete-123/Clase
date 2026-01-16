@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UD4 (Cierre) | Diseñar la experiencia de carga</title>
+    <link rel="stylesheet" href="styles.css" />
+
+    <!--
+    CONFIGURACIÓN INICIAL (MEJORABLE A PROPÓSITO)
+    Objetivo: decidir qué scripts deben ser async/defer
+    y cómo afecta a:
+      - errores (DOM no listo)
+      - rendimiento percibido
+      - estados de interfaz (loading/ready)
+  -->
+
+    <!-- Script "no visible" (analítica). Normalmente podría ser async 
+  Atributo async. Al no ser visible ni modificar el árbol DOM, no debe pausar la descarga del HTML ni le va a afectar ejecutarse sin el árbol DOM cargado 
+-->
+    <script src="js/analytics.js" async></script>
+
+    <!-- Scripts de interfaz (dependen del DOM). Normalmente deberían ser defer 
+menu.js, theme.js, welcome.js, loading.js
+Se selecciona defer pues necesitan que el árbol DOM esté cargado para poder ejecutarse.
+-->
+    <script src="js/menu.js" defer></script>
+    <script src="js/theme.js" defer></script>
+    <script src="js/welcome.js" defer></script>
+
+    <!-- Estado de carga (depende del DOM). Normalmente debería ser defer -->
+    <script src="js/loading.js" defer></script>
+  </head>
+
+  <body>
+    <!-- Overlay de carga (estado de interfaz) -->
+    <div id="loadingOverlay" class="loading-overlay" aria-live="polite">
+      <div class="loading-card">
+        <div class="spinner" aria-hidden="true"></div>
+        <p class="loading-title">Cargando interfaz…</p>
+        <p class="loading-subtitle">
+          Observa cuándo aparece el contenido y cuándo funciona la interacción.
+        </p>
+        <p class="loading-hint">
+          Pista: abre DevTools (Console) y prueba a simular red lenta.
+        </p>
+      </div>
+    </div>
+
+    <header class="header">
+      <div class="brand">
+        <span class="logo" aria-hidden="true">🌿</span>
+        <div>
+          <h1 class="title">Delicias Responsivas</h1>
+          <p class="subtitle">Cierre UD4: experiencia de carga (async/defer)</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button
+          id="btnTheme"
+          class="btn"
+          type="button"
+          aria-pressed="false"
+          disabled
+        >
+          🌙 Modo oscuro
+        </button>
+
+        <button
+          id="btnMenu"
+          class="btn btn-secondary"
+          type="button"
+          aria-expanded="false"
+          aria-controls="nav"
+          disabled
+        >
+          ☰ Menú
+        </button>
+      </div>
+    </header>
+
+    <nav id="nav" class="nav" aria-label="Navegación principal">
+      <ul>
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#contenido">Contenido</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+
+    <main class="main" id="inicio">
+      <section class="card">
+        <h2>Objetivo</h2>
+        <p>
+          Esta página tiene varios scripts. Tu trabajo es
+          <strong>diseñar la experiencia de carga</strong>: decidir qué scripts
+          deben cargarse con <code>async</code> o <code>defer</code> para
+          mejorar la usabilidad y el rendimiento percibido.
+        </p>
+        <div class="info">
+          <strong>Consejo:</strong> abre DevTools → Console. Luego prueba
+          DevTools → Network → Slow 3G.
+        </div>
+
+        <div id="welcomeBox" class="welcome" hidden>
+          <strong id="welcomeTitle">¡Hola!</strong>
+          <p id="welcomeText">Mensaje de bienvenida.</p>
+        </div>
+      </section>
+
+      <section class="card" id="contenido">
+        <h2>Zona interactiva</h2>
+        <p>
+          Los botones se activan cuando la interfaz está lista. Si ves errores o
+          tarda demasiado en activarse, revisa cómo se están cargando los
+          scripts.
+        </p>
+
+        <div class="actions">
+          <button id="btnMore" class="btn" type="button" disabled>
+            Ver más
+          </button>
+          <span id="statusText" class="status" aria-live="polite"
+            >Estado: cargando…</span
+          >
+        </div>
+
+        <div id="moreInfo" class="more" hidden>
+          <p>
+            Este bloque se muestra/oculta. Sirve para comprobar si un script que
+            toca el DOM necesita <code>defer</code>.
+          </p>
+        </div>
+      </section>
+
+      <section class="card" id="checklist">
+        <h2>Checklist (rápido)</h2>
+        <ul>
+          <li>¿Desaparece el overlay de carga en el momento adecuado?</li>
+          <li>¿Los botones se activan cuando deben?</li>
+          <li>¿Hay errores en la consola?</li>
+          <li>¿La web se siente “rápida” en Slow 3G?</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="footer" id="contacto">
+      <p>Contacto: info@delicias-responsivas.test</p>
+      <p class="small">
+        UD4 – Integración de contenido interactivo (experiencia de carga)
+      </p>
+    </footer>
+  </body>
+</html>
+
+<!-- 
+  ¿Desaparece el overlay de carga en el momento adecuado?
+    Sí, al terminar de cargar la página y los scripts se quita el overlay de carga.
+  ¿Los botones se activan cuando deben?
+    Sí, cuando se les pincha se activan y actúan correctamente una vez solucionados los errores que tenían.
+  ¿Hay errores en la consola?
+    Al iniciar la página "vanilla" (sin arreglar nada) sí que hay, tanto errores de carga como errores de código (constantes duplicadas).
+  ¿La web se siente “rápida” en Slow 3G? 
+    Dentro de lo que es el 3G sí, tarda únicamente 2 segundos en cargar todo el contenido. 
+  -->

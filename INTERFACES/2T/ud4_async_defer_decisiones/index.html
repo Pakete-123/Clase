@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UD4 | Decisiones async/defer</title>
+    <link rel="stylesheet" href="styles.css" />
+    <!-- CONFIGURACIÓN INICIAL MEJORABLE -->
+    <!-- Razonamientos 
+        analytics.js
+      Atributo async, no recoge información ni modifica el árbol DOM del HTML ni del CSS, pero interesa que se descargue en segundo plano y se ejecute cuando esté descargado para no interrumpir la carga del HTML.
+
+        menu.js
+      Atributo defer. Modifica y recoge elementos del árbol DOM del HTML.
+
+        theme.js
+      Atributo defer. Interesa tenerlo descargado cuanto antes para evitar parpadeos en la carga de la página (que cambie rápidamente entre el modo claro y el oscuro).
+
+        welcome.js
+      Atributo defer. Manipula y gestiona botones del HTML, interesa que esté cargado pero se ejecute al final de la carga del DOM.
+     
+     -->
+    <script src="js/analytics.js" async></script>
+    <script src="js/menu.js" defer></script>
+    <script src="js/theme.js" defer></script>
+    <script src="js/welcome.js" defer></script>
+  </head>
+  <body>
+    <header class="header">
+      <h1>Delicias Responsivas</h1>
+      <button id="btnTheme">🌙 Modo oscuro</button>
+      <button id="btnMenu">☰ Menú</button>
+    </header>
+    <nav id="nav">
+      <a href="#">Inicio</a>
+      <a href="#">Contenido</a>
+      <a href="#">Contacto</a>
+    </nav>
+    <main>
+      <button id="btnMore">Ver más</button>
+      <div id="moreInfo" hidden>Contenido adicional</div>
+      <div id="welcomeBox" hidden>Bienvenido/a</div>
+    </main>
+  </body>
+</html>
